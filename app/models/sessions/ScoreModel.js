@@ -1,8 +1,18 @@
 export default class ScoreModel {
 
-    constructor(activity_level, time) {
-        this.activity_level = activity_level
+    // Number String -> Void
+    constructor(score, time) {
+        this.score = score
         this.time = time
+    }
+
+    // Void -> JSON
+    // Turns this score to JSON
+    to_json() {
+        return {
+            score: this.score,
+            time: this.time
+        }
     }
 
 }
