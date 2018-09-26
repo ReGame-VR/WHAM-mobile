@@ -2,6 +2,8 @@ const fetch = require("node-fetch")
 var main_url = "http://localhost:3000"
 var version_extension = "?version=1.0"
 import PatientOverviewModel from '../models/general/PatientOverviewModel';
+import MessageModel from '../models/messages/MessageModel'
+import PatientMessagesModel from '../models/messages/PatientMessagesModel'
 
 export default class NetworkAPI {
 
@@ -109,6 +111,73 @@ export default class NetworkAPI {
         }).then(res => {
             return
         })
+    }
+
+    // String String String String -> Promise(Object)
+    // Sends a message to this patient from this therapist
+    static send_message(patientID, therapistID, message_content, token) {
+        var URL = main_url + "/therapists/" + therapistID + "/messages/?auth_token=" + token
+        return fetch(URL, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                patientID: patientID,
+                message_content: message_content,
+                date_sent: new Date()
+            })
+        }).then(response => response.json())
+    }
+
+    // Number String String String String -> Promise(Void)
+    // Sends a reply to this message chain
+    // messageID and patientID are only for identifying the proper message
+    static send_reply(messageID, patientID, sentID, reply_content, token) {
+        var URL = main_url + "/patients/" + patientID + "/messages/" + messageID + "?auth_token=" + token
+        return fetch(URL, {
+            method: "PUT",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                sentID: sentID,
+                reply_content: reply_content
+            })
+        }).then(res => {
+            return
+        })
+    }
+
+    // String String -> Promise(PatientMessagesModel)
+    // Returns every message this patient has received
+    static get_all_patient_messages(patientID, token) {
+        var URL = main_url + "/patients/" + patientID + "/messages?auth_token=" + token
+        return fetch(URL, {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+        .then(json => {return new PatientMessagesModel(json)})
+    }
+
+    // String Number String -> Promise(PatientMessagesModel)
+    // Returns every message this patient has received
+    static get_specific_patient_message(patientID, messageID, token) {
+        var URL = main_url + "/patients/" + patientID + "/messages/" + messageID + "?auth_token=" + token
+        return fetch(URL, {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+        .then(json => {return new MessageModel(json.patientID, json.therapistID, json.message_content, 
+            json.date_sent, json.is_read, json.messageID, json.replies)});
     }
 
 

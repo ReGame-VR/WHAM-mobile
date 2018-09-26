@@ -1,6 +1,6 @@
 import PatientInfoModel from './PatientInfoModel'
 import SessionModel from '../sessions/SessionModel'
-import MessageModel from '../messages/MessageNoReplyModel'
+import MessageModel from '../messages/MessageModel'
 import RequestModel from '../request/RequestModel'
 
 export default class PatientOverviewModel {
@@ -23,7 +23,7 @@ export default class PatientOverviewModel {
         this.messages = []
         for(var i = 0; i < messages.length; i++) {
             this.messages.push(new MessageModel(messages[i].patientID, messages[i].therapistID,
-                 messages[i].message_content, message[i].date_sent, message[i].is_read, message[i].messageID));
+                 messages[i].message_content, messages[i].date_sent, messages[i].is_read, messages[i].messageID));
         } 
         this.requests = []
         for(var i = 0; i < requests.length; i++) {
