@@ -1,4 +1,8 @@
-const fetch = require("node-fetch")
+var isInTest = typeof global.it === 'function';
+if(isInTest) {
+    const fetch = require("node-fetch")
+}
+
 var main_url = "http://localhost:3000"
 var version_extension = "?version=1.0"
 import PatientOverviewModel from '../models/general/PatientOverviewModel';
