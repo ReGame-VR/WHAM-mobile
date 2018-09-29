@@ -37,4 +37,14 @@ export default class SessionModel {
         return session_json;
     }
 
+    // Void -> Number
+    // Returns the average score of this session
+    get_average_score() {
+        var total_score = 0
+        for(var i = 0; i < this.scores.length; i++) {
+            total_score += this.scores[i].score
+        }
+        total_score /= this.scores.length
+        return total_score
+    }
 } 

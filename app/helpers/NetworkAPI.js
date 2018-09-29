@@ -1,9 +1,10 @@
-var isInTest = typeof global.it === 'function';
-if(isInTest) {
-    const fetch = require("node-fetch")
+var node_fetch;
+
+if(typeof global.it === 'function') {
+    node_fetch = require("node-fetch");
 }
 
-var main_url = "http://localhost:3000"
+var main_url = "http://10.110.189.4:3000"
 var version_extension = "?version=1.0"
 import PatientOverviewModel from '../models/general/PatientOverviewModel';
 import MessageModel from '../models/messages/MessageModel'
@@ -16,16 +17,12 @@ export default class NetworkAPI {
     // If sucess, returns the token, if fail throws an error
     static login(username, password) {
         var URL = main_url + "/login/patient"
-        return fetch(URL, {
+        return this.my_fetch(URL, {
             method: "POST",
             body: JSON.stringify({
                 username: username,
                 password: password,
-            }),
-            headers: { 
-                'Accept': 'application/json',
-                'Content-Type': 'application/json' 
-            }
+            })
         }).then(response => response.json())
         .then(json => {
             return json.token
@@ -43,13 +40,9 @@ export default class NetworkAPI {
             information: information
         }
         var URL = main_url + "/patients"
-        return fetch(URL, {
+        return this.my_fetch(URL, {
             method: "POST",
-            body: JSON.stringify(body),
-            headers: { 
-                'Accept': 'application/json',
-                'Content-Type': 'application/json' 
-            }
+            body: JSON.stringify(body)
         }).then(response => {
             return response.json()
         }).then(json => json.token)
@@ -58,12 +51,8 @@ export default class NetworkAPI {
     // String String -> Promise(PatientOverviewModel)
     static load_patient_overview(username, token) {
         var URL = main_url + "/patients/" + username + "?auth_token=" + token
-        return fetch(URL, {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+        return this.my_fetch(URL, {
+            method: "GET"
         }).then(response => response.json())
         .then(json => new PatientOverviewModel(json))
     }
@@ -72,12 +61,8 @@ export default class NetworkAPI {
     // Sends this session to the patients page
     static send_session_details(session_json, username, token) {
         var URL = main_url + "/patients/" + username + "/sessions?auth_token=" + token
-        return fetch(URL, {
+        return this.my_fetch(URL, {
             method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify(session_json)
         }).then(res => {
             return
@@ -88,12 +73,8 @@ export default class NetworkAPI {
     // Sends a request from this patient to this therapist
     static send_request(therapistID, patientID, token) {
         var URL = main_url + "/therapists/" + therapistID + "/patients/?auth_token=" + token
-        return fetch(URL, {
+        return this.my_fetch(URL, {
             method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify({
                 patientID: patientID
             })
@@ -106,12 +87,8 @@ export default class NetworkAPI {
     // Accepts a request from this therapist to a patient
     static accept_request(therapistID, patientID, token) {
         var URL = main_url + "/patients/" + patientID + "/therapists/" + therapistID + "?auth_token=" + token
-        return fetch(URL, {
-            method: "PATCH",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+        return this.my_fetch(URL, {
+            method: "PATCH"
         }).then(res => {
             return
         })
@@ -121,12 +98,8 @@ export default class NetworkAPI {
     // Sends a message to this patient from this therapist
     static send_message(patientID, therapistID, message_content, token) {
         var URL = main_url + "/therapists/" + therapistID + "/messages/?auth_token=" + token
-        return fetch(URL, {
+        return this.my_fetch(URL, {
             method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify({
                 patientID: patientID,
                 message_content: message_content,
@@ -140,12 +113,8 @@ export default class NetworkAPI {
     // messageID and patientID are only for identifying the proper message
     static send_reply(messageID, patientID, sentID, reply_content, token) {
         var URL = main_url + "/patients/" + patientID + "/messages/" + messageID + "?auth_token=" + token
-        return fetch(URL, {
+        return this.my_fetch(URL, {
             method: "PUT",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify({
                 sentID: sentID,
                 reply_content: reply_content
@@ -159,12 +128,8 @@ export default class NetworkAPI {
     // Returns every message this patient has received
     static get_all_patient_messages(patientID, token) {
         var URL = main_url + "/patients/" + patientID + "/messages?auth_token=" + token
-        return fetch(URL, {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+        return this.my_fetch(URL, {
+            method: "GET"
         }).then(response => response.json())
         .then(json => {return new PatientMessagesModel(json)})
     }
@@ -173,15 +138,24 @@ export default class NetworkAPI {
     // Returns every message this patient has received
     static get_specific_patient_message(patientID, messageID, token) {
         var URL = main_url + "/patients/" + patientID + "/messages/" + messageID + "?auth_token=" + token
-        return fetch(URL, {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+        return this.my_fetch(URL, {
+            method: "GET"
         }).then(response => response.json())
         .then(json => {return new MessageModel(json.patientID, json.therapistID, json.message_content, 
             json.date_sent, json.is_read, json.messageID, json.replies)});
+    }
+
+    // String JSON -> Promise(JSON)
+    static my_fetch(URL, parts) {
+        parts.headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+        if(typeof fetch === 'undefined') {
+            return node_fetch(URL, parts)
+        } else {
+            return fetch(URL, parts)
+        }
     }
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, AsyncStorage} from 'react-native';
 import NetworkAPI from '../../helpers/NetworkAPI'
 
 export default class LoginController extends React.Component {
@@ -40,9 +40,15 @@ export default class LoginController extends React.Component {
 
     login() {
         NetworkAPI.login(this.state.username_text, this.state.password_text).then(token => {
-            console.log("Your in!", token.token)
+            _storeData = async () => {
+                await AsyncStorage.setItem('LOGIN', JSON.stringify({
+                    username: this.state.username_text,
+                    token: token
+                }));
+                this.props.done(this.state.username_text, token);
+              }
+            _storeData()
         }).catch(error => {
-            console.log(error);
             this.setState({
                 warning: "Incorrect password/username"
             })
