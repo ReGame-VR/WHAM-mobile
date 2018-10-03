@@ -27,7 +27,9 @@ export default class OverviewController extends React.Component {
     render() {
         if(this.state.loaded) {
             return <View>
-                        <HeaderController logout={this.props.logout} requests={this.state.overview.requests} messages={this.state.overview.messages}></HeaderController>
+                        <HeaderController logout={this.props.logout} requests={this.state.overview.requests} messages={this.state.overview.messages}
+                        message_action={this.props.message_action} request_action={this.props.request_action}
+                        ></HeaderController>
                         <SessionOverviewController sessions={this.state.overview.sessions}></SessionOverviewController>
                     </View>
         } else {

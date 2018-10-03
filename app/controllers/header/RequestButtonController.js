@@ -1,11 +1,15 @@
 import NotificationButtonController from './NotificationButtonController'
+import React from 'react'
 import { Icons } from 'react-native-fontawesome'
 
-export default class RequestButtonController extends NotificationButtonController {
+export default class RequestButtonController extends React.Component {
 
     constructor(props) {
-        props.icon = Icons.handshakeO
         super(props);
+    }
+
+    render() {
+        return <NotificationButtonController icon={Icons.handshakeO} number={this.props.requests.length} action={this.props.action}>></NotificationButtonController>
     }
 
 }

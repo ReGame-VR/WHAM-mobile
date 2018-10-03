@@ -12,9 +12,9 @@ export default class HeaderController extends React.Component {
     render() {
         return <View style={styles.container}>
                     <View style={{flexDirection: 'row'}}>
-                        <MessageButtonController messages={this.props.messages} style={{alignSelf: 'flex-start', flex: 1}}></MessageButtonController>
+                        <MessageButtonController messages={this.props.messages} style={{alignSelf: 'flex-start', flex: 1}} action={this.props.message_action}></MessageButtonController>
                         <View style={{flex: 1}}></View>
-                        <RequestButtonController requests={this.props.requests} style={{alignSelf: 'flex-end', flex: 1}}></RequestButtonController>
+                        <RequestButtonController requests={this.props.requests} style={{alignSelf: 'flex-end', flex: 1}} action={this.props.request_action}></RequestButtonController>
                     </View>
                     <Button
                         onPress={this.logout()}
