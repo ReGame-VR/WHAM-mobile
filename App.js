@@ -1,7 +1,9 @@
 import React from 'react';
+import { Font } from 'expo'
 import { View, Text, AsyncStorage } from 'react-native';
 import LoginController from './app/controllers/account/LoginController'
 import OverviewController from './app/controllers/overview/OverviewController'
+import FontAwesome from '@fortawesome/fontawesome-free'
 
 export default class App extends React.Component {
 
@@ -33,7 +35,9 @@ export default class App extends React.Component {
         })
       }
     }
-    _retrieveData();
+    Font.loadAsync({
+      "FontAwesome": FontAwesome
+    }).then(() => _retrieveData())
   }
 
   render() {

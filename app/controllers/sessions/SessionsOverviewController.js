@@ -17,7 +17,7 @@ export default class SessionOverviewController extends React.Component {
         return <View style={styles.container}>{to_display}</View>
     }
 
-}
+} 
 
 const styles = StyleSheet.create({
     container: {

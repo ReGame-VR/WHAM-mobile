@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import NetworkAPI from '../../helpers/NetworkAPI'
-import HeaderController from './HeaderController'
+import HeaderController from '../header/HeaderController'
 import SessionOverviewController from '../sessions/SessionsOverviewController'
 
 export default class OverviewController extends React.Component {
@@ -20,13 +20,14 @@ export default class OverviewController extends React.Component {
                 overview: overview
             })
         }).catch(error => {
+            this.props.logout()
         })
     }
 
     render() {
         if(this.state.loaded) {
             return <View>
-                        <HeaderController logout={this.props.logout}></HeaderController>
+                        <HeaderController logout={this.props.logout} requests={this.state.overview.requests} messages={this.state.overview.messages}></HeaderController>
                         <SessionOverviewController sessions={this.state.overview.sessions}></SessionOverviewController>
                     </View>
         } else {

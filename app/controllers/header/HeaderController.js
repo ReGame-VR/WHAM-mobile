@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button, AsyncStorage} from 'react-native';
+import MessageButtonController from './MessageButtonController'
+import RequestButtonController from './RequestButtonController'
 
 export default class HeaderController extends React.Component {
 
@@ -9,6 +11,11 @@ export default class HeaderController extends React.Component {
 
     render() {
         return <View style={styles.container}>
+                    <View style={{flexDirection: 'row'}}>
+                        <MessageButtonController messages={this.props.messages} style={{alignSelf: 'flex-start', flex: 1}}></MessageButtonController>
+                        <View style={{flex: 1}}></View>
+                        <RequestButtonController requests={this.props.requests} style={{alignSelf: 'flex-end', flex: 1}}></RequestButtonController>
+                    </View>
                     <Button
                         onPress={this.logout()}
                         title="Logout"
@@ -23,7 +30,6 @@ export default class HeaderController extends React.Component {
     // Deletes the login info and resets to the login screen
     logout() {
         return async () => {
-            console.log("logging");
             await AsyncStorage.removeItem('LOGIN')
             this.props.logout();
           }
