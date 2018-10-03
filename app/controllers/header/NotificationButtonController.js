@@ -1,6 +1,6 @@
 import React from 'react'
 import FontAwesome from 'react-native-fontawesome'
-import { StyleSheet, Text, View, TextInput, Button, AsyncStorage} from 'react-native';
+import { Text, View, TouchableWithoutFeedback} from 'react-native';
 
 export default class NotificationButtonController extends React.Component {
 
@@ -10,12 +10,14 @@ export default class NotificationButtonController extends React.Component {
     }
 
     render() {
-        return  <View style={{backgroundColor: "green"}}>
-                    <Text style={{margin: 10, fontSize: 60, textAlign: 'center'}}>
-                        <FontAwesome>{this.props.icon}</FontAwesome>
-                    </Text> 
-                    <Text style={{position: "absolute", left: "45%", top: "50%"}}>{this.props.number}</Text>
-                </View>
+        return  <TouchableWithoutFeedback onPress={this.props.action}>
+                    <View style={{backgroundColor: "green"}} title="Hello">
+                        <Text style={{margin: 10, fontSize: 60, textAlign: 'center'}}>
+                            <FontAwesome>{this.props.icon}</FontAwesome>
+                        </Text> 
+                        <Text style={{position: "absolute", left: "45%", top: "50%"}}>{this.props.number}</Text>
+                    </View>
+                </TouchableWithoutFeedback>
     }
     
 } 
