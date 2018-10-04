@@ -67,7 +67,6 @@ export default class App extends React.Component {
 
   go_to_overview() {
     return () => {
-      console.log("back")
       this.setState({
         stage: 2
       })
