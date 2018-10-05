@@ -20,9 +20,12 @@ export default class HeaderController extends React.Component {
                         onPress={this.logout()}
                         title="Logout"
                         color="#841584"
-                    >
-                    </Button>
-                    <Text>THIS IS A HEADER</Text>
+                    />
+                    <Button
+                        onPress={this.props.settings}
+                        title="Settings"
+                        color="#841584"
+                    />
                 </View>
     }
 

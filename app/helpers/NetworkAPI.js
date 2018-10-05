@@ -4,7 +4,7 @@ if(typeof global.it === 'function') {
     node_fetch = require("node-fetch");
 }
 
-var main_url = "http://10.110.189.4:3000"
+var main_url = "http://10.0.0.200:3000"
 var version_extension = "?version=1.0"
 import PatientOverviewModel from '../models/general/PatientOverviewModel';
 import MessageModel from '../models/messages/MessageModel'

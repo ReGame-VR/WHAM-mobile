@@ -32,7 +32,11 @@ export default class LoginController extends React.Component {
                     onPress={() => this.login()}
                     title="Login"
                     color="#841584"
-                    accessibilityLabel="Learn more about this purple button"
+                />
+                <Button
+                    onPress={this.props.create}
+                    title="Create Account"
+                    color="#841584"
                 />
             </View>
         );
@@ -40,14 +44,7 @@ export default class LoginController extends React.Component {
 
     login() {
         NetworkAPI.login(this.state.username_text, this.state.password_text).then(token => {
-            _storeData = async () => {
-                await AsyncStorage.setItem('LOGIN', JSON.stringify({
-                    username: this.state.username_text,
-                    token: token
-                }));
-                this.props.done(this.state.username_text, token);
-              }
-            _storeData()
+            this.props.done(this.state.username_text, token);
         }).catch(error => {
             this.setState({
                 warning: "Incorrect password/username"
