@@ -60,9 +60,7 @@ export default class CreateController extends React.Component {
         this.setState({
             stage: this.state.stage+1
         })
-        console.log(this.state.stage)
         if(this.state.stage+1 >= 5) {
-            console.log(this.state.stage)
             NetworkAPI.create_account(this.state.username_text, this.state.password_text, this.state.date,
                 this.state.weight, this.state.height, "").then(token => {
                     this.props.done(this.state.username_text, token)

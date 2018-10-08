@@ -4,11 +4,12 @@ if(typeof global.it === 'function') {
     node_fetch = require("node-fetch");
 }
 
-var main_url = "http://10.0.0.200:3000"
+var main_url = "http://10.110.189.4:3000"
 var version_extension = "?version=1.0"
 import PatientOverviewModel from '../models/general/PatientOverviewModel';
 import MessageModel from '../models/messages/MessageModel'
 import PatientMessagesModel from '../models/messages/PatientMessagesModel'
+import SessionModel from '../models/sessions/SessionModel'
 
 export default class NetworkAPI {
 
@@ -55,6 +56,14 @@ export default class NetworkAPI {
             method: "GET"
         }).then(response => response.json())
         .then(json => new PatientOverviewModel(json))
+    }
+
+    static get_specific_session(sessionID, username, token) {
+        var URL = main_url + "/patients/" + username + "/sessions/" + sessionID + "?auth_token=" + token
+        return this.my_fetch(URL, {
+            method: "GET"
+        }).then(response => response.json())
+        .then(json => new SessionModel(json.id, json.effort, json.motivation, json.engagement, json.scores))
     }
 
     // JSON String -> Promise(Void)

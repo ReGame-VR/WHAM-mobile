@@ -35,7 +35,8 @@ export default class SessionOverviewController extends React.Component {
     }
 
     render_specific_session(id) {
-        return <SingleSessionController sessionID={id} back={this.back()}></SingleSessionController>
+        return <SingleSessionController sessionID={id} back={this.back()}
+        username={this.props.username} token={this.props.token}></SingleSessionController>
     }
  
     action(id) {
@@ -58,7 +59,7 @@ export default class SessionOverviewController extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-      height: "80%",
+      height: "70%",
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',

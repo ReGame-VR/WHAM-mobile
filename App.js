@@ -32,7 +32,7 @@ export default class App extends React.Component {
         const value = JSON.parse(await AsyncStorage.getItem('LOGIN'));
         if (value !== null) {
           this.setState({
-            stage: 2,
+            stage: OVERVIEW_STAGE,
             username: value.username,
             token: value.token
           })
@@ -41,7 +41,7 @@ export default class App extends React.Component {
         }
        } catch (error) {
         this.setState({
-          stage: 1,
+          stage: LOGIN_STAGE
         })
       }
     }
