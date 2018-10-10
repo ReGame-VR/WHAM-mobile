@@ -9,8 +9,10 @@ export default class SingleSessionOverviewController extends React.Component {
 
     render() {
         return <View style={styles.container}>
-                <Button onPress={this.props.action} title="More Info"></Button>
-                <Text>{this.props.session.get_average_score()}</Text>
+                <Button onPress={this.props.action} title="More Info"
+                style={{position: "absolute", flex: 1, right: 0}}></Button>
+                <Text style={{position: "absolute", flex: 1, left: 0}}>
+                {this.props.session.get_average_score()}</Text>
                 </View>
     }
 
@@ -18,7 +20,6 @@ export default class SingleSessionOverviewController extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-      alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: "green"
     },

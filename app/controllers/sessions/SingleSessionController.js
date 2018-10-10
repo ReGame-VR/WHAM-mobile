@@ -21,7 +21,7 @@ export default class SingleSessionController extends React.Component {
     }
 
     render() {
-        var contents = []
+        var contents = [] 
         if(this.state.loaded === true) {
             var scores = this.state.session.scores
             for(var i = 0; i < scores.length; i++) {
