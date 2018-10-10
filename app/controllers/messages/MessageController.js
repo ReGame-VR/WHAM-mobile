@@ -4,6 +4,9 @@ import NetworkAPI from '../../helpers/NetworkAPI'
 import MessageOverviewController from './MessageOverviewController'
 import SingleMessageController from './SingleMessageController'
 
+/**
+ * Gives an overview for every message this user has sent or recieved
+ */
 export default class MessageController extends React.Component {
 
     constructor(props) {
@@ -32,7 +35,7 @@ export default class MessageController extends React.Component {
                     contents.push(<MessageOverviewController key={this.state.messages[i].messageID} message={this.state.messages[i]} action={this.show_message(this.state.messages[i].messageID)}></MessageOverviewController>)
                 } 
             } else {
-                contents = <SingleMessageController messageID={this.state.stage}></SingleMessageController>
+                contents = <SingleMessageController messageID={this.state.stage} username={this.props.username} token={this.props.token}></SingleMessageController>
             }
             return (
             <View>
