@@ -1,9 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import NetworkAPI from '../../helpers/NetworkAPI'
-import HeaderController from '../header/HeaderController'
-import SessionOverviewController from '../sessions/SessionsOverviewController'
-import SessionRecorderController from '../sessions/SessionRecorderController'
+import OverviewView from '../../views/overview/OverviewView'
 
 export default class OverviewController extends React.Component {
 
@@ -12,6 +9,8 @@ export default class OverviewController extends React.Component {
         this.state = {
             loaded: false
         }
+        this.view = new OverviewView(this.props.logout, this.props.settings, 
+            this.props.request_action, this.props.message_action, this.props.username, this.props.token, this.state)
     }
     
     componentDidMount() {
@@ -25,19 +24,13 @@ export default class OverviewController extends React.Component {
         })
     }
 
+    setState(state) {
+        this.view.state = state;
+        super.setState(state);
+    }
+
     render() {
-        if(this.state.loaded) {
-            return <View>
-                        <HeaderController logout={this.props.logout} requests={this.state.overview.requests} messages={this.state.overview.messages}
-                        message_action={this.props.message_action} request_action={this.props.request_action} settings={this.props.settings}
-                        ></HeaderController>
-                        <SessionOverviewController sessions={this.state.overview.sessions}
-                        username={this.props.username} token={this.props.token}></SessionOverviewController>
-                        <SessionRecorderController></SessionRecorderController>
-                    </View>
-        } else {
-            return <View><Text>Loading</Text></View>
-        }
+        return this.view.render()
     }
 
 }
