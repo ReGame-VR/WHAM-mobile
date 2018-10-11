@@ -1,16 +1,15 @@
 import React from 'react'
-import { Text, View, Button } from 'react-native'
+import SettingsView from '../../views/account/SettingsView'
 
 export default class SettingsController extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.view = new SettingsView(this.props.back)
+    }
+
     render() {
-        return (
-            <View>
-                <Text>SETTINGS</Text>
-                <Text>SETTINGS</Text>
-                <Button title="back" onPress={this.props.back}></Button>
-            </View>
-        )
+        return this.view.render()
     }
  
 }

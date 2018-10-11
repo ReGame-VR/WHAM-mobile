@@ -6,23 +6,22 @@ import SessionRecorderController from '../../controllers/sessions/SessionRecorde
 
 export default class OverviewController {
 
-    constructor(logout_action, settings_action, request_action, message_action, username, token, state) {
+    constructor(logout_action, settings_action, request_action, message_action, username, token) {
         this.logout_action = logout_action
         this.settings_action = settings_action
         this.request_action = request_action
         this.message_action = message_action
         this.username = username
         this.token = token
-        this.state = state
     }
 
-    render() {
-        if(this.state.loaded) {
+    render(loaded, requests, messages, sessions) {
+        if(loaded) {
             return <View>
-                        <HeaderController logout={this.logout_action} requests={this.state.overview.requests} messages={this.state.overview.messages}
+                        <HeaderController logout={this.logout_action} requests={requests} messages={messages}
                         message_action={this.message_action} request_action={this.request_action} settings={this.settings_action}
                         ></HeaderController>
-                        <SessionOverviewController sessions={this.state.overview.sessions}
+                        <SessionOverviewController sessions={sessions}
                         username={this.username} token={this.token}></SessionOverviewController>
                         <SessionRecorderController></SessionRecorderController>
                     </View>

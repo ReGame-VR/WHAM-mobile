@@ -7,10 +7,15 @@ export default class OverviewController extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            loaded: false
+            loaded: false,
+            overview: {
+                requests: undefined,
+                sessions: undefined,
+                messages: undefined
+            }
         }
         this.view = new OverviewView(this.props.logout, this.props.settings, 
-            this.props.request_action, this.props.message_action, this.props.username, this.props.token, this.state)
+            this.props.request_action, this.props.message_action, this.props.username, this.props.token)
     }
     
     componentDidMount() {
@@ -24,13 +29,8 @@ export default class OverviewController extends React.Component {
         })
     }
 
-    setState(state) {
-        this.view.state = state;
-        super.setState(state);
-    }
-
     render() {
-        return this.view.render()
+        return this.view.render(this.state.loaded, this.state.overview.requests, this.state.overview.messages, this.state.overview.sessions);
     }
 
 }

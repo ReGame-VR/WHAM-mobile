@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, View, Button, Picker, TextInput } from 'react-native'
 import DatePicker from 'react-native-datepicker'
 import NetworkAPI from '../../helpers/NetworkAPI'
+import CreateView from '../../views/account/CreateView'
 
 export default class CreateController extends React.Component {
 
@@ -16,43 +17,17 @@ export default class CreateController extends React.Component {
             password_text: "password",
             warning: ""
         }
+        this.view = new CreateView((text) => this.setState({username_text: text}),
+        (text) => this.setState({password_text: text}),
+        (date) => this.setState({date: date}),
+        (weight) => this.setState({weight: weight}),
+        (height) => this.setState({height: height}),
+        this.props.login,
+        this.next_stage);
     }
 
     render() {
-        var contents;
-        if(this.state.stage === 0) {
-            contents = <Text>C1</Text>
-        } else if(this.state.stage === 1) {
-            contents = this.get_date_picker()
-        } else if(this.state.stage === 2) {
-            contents = this.get_weight_selector()
-        } else if(this.state.stage === 3) {
-            contents = this.get_height_selector()
-        } else if(this.state.stage === 4) {
-            contents = [<TextInput
-                key="username"
-                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                onChangeText={(text) => this.setState({username_text: text})}
-                value={this.state.username_text}
-            />,
-            <TextInput
-                key="password"
-                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                secureTextEntry={true}
-                onChangeText={(text) => this.setState({password_text: text})}
-                value={this.state.password_text}
-            />,
-            <Text key="warn">{this.state.warning}</Text>];
-        }
-        return (
-            <View>
-                <Text>CREATE</Text>
-                <Text>CREATE</Text>
-                <Button title="back" onPress={this.props.login}></Button>
-                <Button title="next" onPress={this.next_stage}></Button>
-                {contents}
-            </View>
-        )
+        return this.view.render(this.state.stage, this.state.date, this.state.height, this.state.weight, this.state.username_text, this.state.password_text, this.state.warning)
     }
 
     next_stage = () => {
@@ -63,6 +38,9 @@ export default class CreateController extends React.Component {
         if(this.state.stage+1 >= 5) {
             NetworkAPI.create_account(this.state.username_text, this.state.password_text, this.state.date,
                 this.state.weight, this.state.height, "").then(token => {
+                    if(token === undefined) {
+                        throw new Error("token cant be undefined")
+                    }
                     this.props.done(this.state.username_text, token)
                 }).catch(error => {
                     cur.setState({
