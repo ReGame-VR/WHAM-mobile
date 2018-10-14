@@ -3,7 +3,7 @@ import { Font } from 'expo'
 import { View, Text, AsyncStorage } from 'react-native';
 import LoginController from './app/controllers/account/LoginController'
 import OverviewController from './app/controllers/overview/OverviewController'
-import MessageController from './app/controllers/messages/MessageController'
+import MessageOverviewController from './app/controllers/messages/MessageOverviewController'
 import RequestController from './app/controllers/requests/RequestController'
 import SettingsController from './app/controllers/account/SettingsController'
 import CreateController from './app/controllers/account/CreateController'
@@ -60,7 +60,7 @@ export default class App extends React.Component {
       message_action={this.message_action()} request_action={this.request_action()} settings={this.settings()}
       />
     } else if(this.state.stage === MESSAGE_STAGE) {
-      return <MessageController username={this.state.username} token={this.state.token} back={this.go_to_overview()}/>
+      return <MessageOverviewController username={this.state.username} token={this.state.token} back={this.go_to_overview()}/>
     } else if(this.state.stage === REQUEST_STAGE) {
       return <RequestController username={this.state.username} token={this.state.token} back={this.go_to_overview()}/>
     } else if(this.state.stage === SETTINGS_STAGE) {

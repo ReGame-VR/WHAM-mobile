@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, ScrollView, TextInput, Button } from 'react-native'
 import NetworkAPI from '../../helpers/NetworkAPI';
 import ReplyModel from '../../models/messages/ReplyModel'
+import SingleMessageView from '../../views/message/SingleMessageView'
 
 /**
  * Gives a detailed view for a single message
@@ -15,6 +16,7 @@ export default class SingleMessageController extends React.Component {
             loaded: false,
             reply_text: "Reply"
         }
+        this.view = new SingleMessageView(this.send_reply, (text) => this.setState({reply_text: text}))
     }
 
     componentDidMount() {
@@ -27,27 +29,7 @@ export default class SingleMessageController extends React.Component {
     }
 
     render() {
-        var replies = []
-        if(this.state.loaded) {
-            var replies_object = this.state.message.replies
-            for(var i = 0; i < replies_object.length; i++) {
-                replies.push(<Text key={Math.random()}>{replies_object[i].reply_content}</Text>)
-            }
-            return (
-            <ScrollView>
-                <Text>{this.state.message.contents}</Text>
-                <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                    onChangeText={(text) => this.setState({reply_text: text})}
-                    value={this.state.reply_text}
-                />
-                <Button title="Send Reply" onPress={this.send_reply}></Button>
-                {replies}
-            </ScrollView>
-            )
-        } else {
-            return <Text>Loading</Text>
-        }
+        return this.view.render(this.state.loaded, this.state.message, this.state.reply_text)
     }
 
     send_reply = () => {
