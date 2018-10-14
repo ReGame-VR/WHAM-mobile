@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, Button } from 'react-native'
 import NetworkAPI from '../../helpers/NetworkAPI'
+import SingleSessionView from '../../views/session/SingleSessionView'
 
 export default class SingleSessionController extends React.Component {
 
@@ -9,6 +10,7 @@ export default class SingleSessionController extends React.Component {
         this.state = {
             loaded: false
         }
+        this.view = new SingleSessionView(this.props.back)
     }
 
     componentDidMount() {
@@ -21,19 +23,7 @@ export default class SingleSessionController extends React.Component {
     }
 
     render() {
-        var contents = [] 
-        if(this.state.loaded === true) {
-            var scores = this.state.session.scores
-            for(var i = 0; i < scores.length; i++) {
-                contents.push(<Text key={scores[i].time}>{scores[i].score}</Text>)
-            }
-        }
-        return (
-            <View>
-                {contents}
-                <Button onPress={this.props.back} title="Back"></Button>
-            </View>
-        )
+        return this.view.render(this.state.loaded, this.state.session)
     }
 
 }

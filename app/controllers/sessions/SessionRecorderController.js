@@ -1,14 +1,16 @@
 import React from 'react'
 import { Text, Button, View } from 'react-native'
+import SessionRecorderView from '../../views/session/SessionRecorderView'
 
 export default class SessionRecorderController extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.view = new SessionRecorderView();
+    }
+
     render() {
-        return (
-        <View style={{height: "10%", backgroundColor: "yellow"}}>
-            <Text>Record Session</Text>
-        </View>
-        )
+        return this.view.render();
     }
 
 } 
