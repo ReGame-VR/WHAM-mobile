@@ -1,16 +1,17 @@
 import React from 'react'
 import { Text, View, Button } from 'react-native'
 import NetworkAPI from '../../helpers/NetworkAPI'
+import SingleRequestView from '../../views/request/SingleRequestView'
 
 export default class SingleRequestController extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.view = new SingleRequestView(this.props.therapistID, this.accept_request)
+    }
+
     render() {
-        return (
-            <View>
-                <Text>{this.props.therapistID}</Text>
-                <Button title="Accept Request" onPress={this.accept_request}></Button>
-            </View>
-        )
+        return this.view.render()
     }
 
     accept_request = () => {

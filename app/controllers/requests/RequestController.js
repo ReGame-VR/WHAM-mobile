@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, TextInput, Button, AsyncStorage} from 'react-native';
 import NetworkAPI from '../../helpers/NetworkAPI'
 import SingleRequestController from './SingleRequestController'
+import RequestView from '../../views/request/RequestView'
 
 export default class RequestController extends React.Component {
 
@@ -10,6 +11,7 @@ export default class RequestController extends React.Component {
         this.state = {
             loaded: false
         }
+        this.view = new RequestView(this.remove_request, this.props.back, this.props.username, this.props.token);
     }
 
     componentDidMount() {
@@ -22,22 +24,7 @@ export default class RequestController extends React.Component {
     }
 
     render() {
-        var contents = []
-        var requests = this.state.requests
-        if(this.state.loaded) {
-            for(var i = 0; i < requests.length; i++) {
-                contents.push(<SingleRequestController 
-                    username={this.props.username} token={this.props.token}
-                    key={requests[i].userID} therapistID={requests[i].userID}
-                    remove_request={this.remove_request}/>)
-            }
-        }
-        return (
-            <View style={{top: "10%"}}>
-                {contents}
-                <Button onPress={this.props.back} title="back" key="button"></Button>
-            </View>
-            )
+        return this.view.render(this.state.loaded, this.state.requests);
     }
     
     remove_request = (userID) => {
