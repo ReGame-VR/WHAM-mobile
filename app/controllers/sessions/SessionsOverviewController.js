@@ -1,8 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
-import SingleSessionOverviewController from './SingleSessionOverviewController'
-import SingleSessionController from './SingleSessionController'
-import { BarChart, Grid } from 'react-native-svg-charts'
 import SessionOverviewView from '../../views/session/SessionOverviewView'
 
 export default class SessionOverviewController extends React.Component {

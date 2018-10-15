@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import SingleSessionOverviewController from '../../controllers/sessions/SingleSessionOverviewController'
 import SingleSessionController from '../../controllers/sessions/SingleSessionController'
-import { BarChart, Grid } from 'react-native-svg-charts'
+import SessionGraphView from './graphs/SessionGraphView'
 
 export default class SessionOverviewView{
     
@@ -39,21 +39,15 @@ export default class SessionOverviewView{
 
     get_bar_chart(sessions) {
         var data = []
+        var labels = []
         for(var i = 0; i < sessions.length; i++) {
+            if(sessions[i].scores.length === 0) {
+                continue;
+            }
             data.push(sessions[i].get_average_score()*-200)
+            labels.push(sessions[i].scores[0].time);
         }
-        data.push(0)
-        const fill = 'rgb(255, 0, 0)'
-        return (
-            <BarChart
-                style={{ height: 100, top: 30 }}
-                data={ data }
-                svg={{ fill }}
-                spacingInner={0.3}
-                contentInset={{top: 30, left: 30}}
-            ><Grid/>
-            </BarChart>
-        )
+        return new SessionGraphView(data, labels).render();     
     }
 
     render_specific_session(id) {
@@ -66,9 +60,7 @@ export default class SessionOverviewView{
 const styles = StyleSheet.create({
     container: {
       height: "70%",
-      backgroundColor: '#fff',
       alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: "blue"
+      justifyContent: 'center'
     },
   });
