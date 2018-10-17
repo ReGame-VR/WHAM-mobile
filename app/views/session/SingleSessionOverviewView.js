@@ -41,7 +41,7 @@ export default class SingleSessionOverviewView {
     get_percent_improvement() {
         var avg = Math.round(100*this.session.get_average_score())/100
         var prev = Math.round(100*this.previous_session_score)/100
-        return Math.round(100*(avg - prev) / ((avg+prev)/2))
+        return Math.round(100*(avg - prev) / ((Math.abs(avg)+Math.abs(prev))/2))
     }
 
     get_icon() {
