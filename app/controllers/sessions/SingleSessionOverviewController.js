@@ -6,7 +6,7 @@ export default class SingleSessionOverviewController extends React.Component {
     
     constructor(props) {
         super(props)
-        this.view = new SingleSessionOverviewView(this.props.session, this.props.action);
+        this.view = new SingleSessionOverviewView(this.props.session, this.props.action, this.props.previous_session_score);
     }
     
     // Button  might remain centered because the width is 100% and the title is centered

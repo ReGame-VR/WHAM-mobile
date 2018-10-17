@@ -35,7 +35,7 @@ export default class SessionGraphView {
             })
         }
         return (
-            <View style={{alignContent:'center'}}>
+            <View style={{alignContent:'center', height:"100%"}}>
                 <Text style={{alignSelf:"center"}}>Contribution Graph</Text>
                 <ContributionGraph
                     values={ data }

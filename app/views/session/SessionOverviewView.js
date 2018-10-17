@@ -27,14 +27,22 @@ export default class SessionOverviewView{
 
     render_overview(sessions) {
         var contents = []
-        for(var i = 0; i < sessions.length; i++) {
-            contents.push(<SingleSessionOverviewController session={sessions[i]} key={sessions[i].sessionID}
+        for(var i = sessions.length-1; i >= 0; i--) {
+            prev_score = undefined;
+            if(i !== 0) {
+                prev_score = sessions[i-1].get_average_score()
+            }
+            contents.push(<SingleSessionOverviewController session={sessions[i]} key={sessions[i].sessionID} previous_session_score={prev_score}
             action={this.action(sessions[i].sessionID)}></SingleSessionOverviewController>)
         }
         return <View style={{width: "100%", height: "100%"}}>
-            {contents}
-            {this.get_bar_chart(sessions)}
-            </View>
+                    <View style={{height: "50%"}}>
+                        {contents}
+                    </View>
+                    <View style={{height:"50%"}}>
+                        {this.get_bar_chart(sessions)}
+                    </View>
+                </View>
     }
 
     get_bar_chart(sessions) {

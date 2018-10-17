@@ -26,7 +26,7 @@ export default class SingleSessionGraphView {
         return (
             <LineChart
                 width={screenWidth - 20}
-                height={ 100 }
+                height={ 200 }
                 data={ graph_data }
                 chartConfig={chartConfig}
                 bezier
