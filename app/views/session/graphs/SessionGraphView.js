@@ -1,6 +1,6 @@
 import React from 'react';
 import { ContributionGraph } from 'react-native-chart-kit'
-import { Dimensions } from 'react-native'
+import { Dimensions, View, Text } from 'react-native'
 
 export default class SessionGraphView {
 
@@ -8,9 +8,9 @@ export default class SessionGraphView {
         this.data = data
         this.labels = labels
         this.min = 1000000
-        for(var i = 0; i < data; i++) {
-            if(data < this.min) {
-                this.min = data
+        for(var i = 0; i < data.length; i++) {
+            if(data[i] < this.min) {
+                this.min = data[i]
             }
         }
     }
@@ -20,7 +20,12 @@ export default class SessionGraphView {
         const chartConfig = {
             backgroundGradientFrom: 'rgb(255,255,255)',
             backgroundGradientTo: 'rgb(255,255,255)',
-            color: (opacity = 1) => `rgba(255, 0, 0, ${0.2-opacity})`
+            color: (opacity = 1) => {
+                return `rgba(${255-Math.round(255*opacity)}, ${255-Math.round(255*opacity)}, ${255-Math.round(255*opacity)}, ${2*opacity})`;
+            },
+            style: {
+                borderRadius: 16
+              }
         }
         var data = [];
         for(var i = 0; i < this.labels.length; i++) {
@@ -29,19 +34,21 @@ export default class SessionGraphView {
                 count: this.data[i] - this.min + 1
             })
         }
-        console.log(data)
         return (
-            <ContributionGraph
-                values={ data }
-                endDate={new Date("2016-02-28")}
-                numDays={105}
-                style={{left: 0}}
-                width={ screenWidth - 10 }
-                height={220}
-                chartConfig={ chartConfig }
-                bezier
-            >
-            </ContributionGraph>
+            <View style={{alignContent:'center'}}>
+                <Text style={{alignSelf:"center"}}>Contribution Graph</Text>
+                <ContributionGraph
+                    values={ data }
+                    endDate={new Date("2016-02-28")}
+                    numDays={105}
+                    style={{left: 0}}
+                    width={ screenWidth - 10 }
+                    height={220}
+                    chartConfig={ chartConfig }
+                    bezier
+                >
+                </ContributionGraph>
+            </View>
         )
     }
 
