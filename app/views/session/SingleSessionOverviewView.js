@@ -12,6 +12,7 @@ export default class SingleSessionOverviewView {
     
     // Button  might remain centered because the width is 100% and the title is centered
     render() {
+        var len = this.session.get_total_length()
         var avg = Math.round(100*this.session.get_average_score())/100
         var improv = undefined
         if(this.previous_session_score !== undefined) {
@@ -22,7 +23,7 @@ export default class SingleSessionOverviewView {
             <View style={{left: "2%", top: "2%", width: "98%", height:"98%"}}>
                 <View style={styles.arrow_container}>
                     <View style={{position: "relative", flex: 1}}>
-                        <Text>Score: {avg}</Text>
+                        <Text>Length: {len} Minutes</Text>
                         {improv}
                     </View>
                     <View style={{position: "relative", flex: 1}}>

@@ -41,7 +41,6 @@ export default class SingleSessionView {
     // String String -> JSXElement
     renderRating(rating, noun) {
         var str = ratingToString(rating, noun)
-        console.log(str)
         return <Text style={rating_text_style.titleText} key={noun}>{str}</Text>
     }
 }

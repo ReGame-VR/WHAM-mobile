@@ -23,7 +23,7 @@ export default class OverviewController {
                         ></HeaderController>
                         <SessionOverviewController sessions={sessions}
                         username={this.username} token={this.token}></SessionOverviewController>
-                        <SessionRecorderController></SessionRecorderController>
+                        <SessionRecorderController username={this.username} token={this.token}></SessionRecorderController>
                     </View>
         } else {
             return <View><Text>Loading</Text></View>
