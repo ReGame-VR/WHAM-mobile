@@ -9,13 +9,16 @@ export default class ScoreModel {
     // Void -> JSON
     // Turns this score to JSON
     to_json() {
-        var dateFormat = require('dateformat');
-        if(this.time === undefined) {
-            return
-        }
+        var yr = this.time.getFullYear()
+        var mth = this.time.getMonth()
+        var day = this.time.getDay()
+        var hr = this.time.getHours()
+        var min = this.time.getMinutes()
+        var sec = this.time.getSeconds()
+        var time = `${yr}-${mth}-${day}T${hr}:${min}:${sec}`
         return {
             score: this.score,
-            time: dateFormat(this.time, "YYYY-mm-DDTHH:MM:SS")
+            time: time
         }
     }
 

@@ -12,7 +12,7 @@ export default class SingleSessionOverviewView {
     
     // Button  might remain centered because the width is 100% and the title is centered
     render() {
-        var len = this.session.get_total_length()
+        var len = Math.round(this.session.get_total_length())
         var avg = Math.round(100*this.session.get_average_score())/100
         var improv = undefined
         if(this.previous_session_score !== undefined) {

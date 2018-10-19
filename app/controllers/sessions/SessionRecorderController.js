@@ -35,10 +35,12 @@ export default class SessionRecorderController extends React.Component {
         session.set_engagement(1)
         session.set_motivation(1)
         session.set_effort(1)
-        NetworkAPI.send_session_details(session.to_json(), this.props.username, this.props.token)
-        this.setState({
-            recording: false,
-            session: undefined
+        NetworkAPI.send_session_details(session.to_json(), this.props.username, this.props.token).then(() => {
+            this.setState({
+                recording: false,
+                session: undefined
+            })  
+            this.props.loader()
         })
     }
 

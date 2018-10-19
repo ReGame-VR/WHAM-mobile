@@ -4,7 +4,7 @@ import { Text, Button, View } from 'react-native'
 export default class SessionRecorderView {
 
     constructor(start_recording, stop_recording) {
-        this.start_recording = start_recording
+        this.start_recording = start_recording 
         this.stop_recording = stop_recording
     }
 
@@ -19,7 +19,6 @@ export default class SessionRecorderView {
         } else {
             return (
                 <View style={{height: "10%", backgroundColor: "yellow"}}>
-                    <Text>Record Session</Text>
                     <Button onPress={this.start_recording} title="Record Session"></Button>
                 </View>
                 )

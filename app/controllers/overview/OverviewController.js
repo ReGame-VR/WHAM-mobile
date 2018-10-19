@@ -15,10 +15,14 @@ export default class OverviewController extends React.Component {
             }
         }
         this.view = new OverviewView(this.props.logout, this.props.settings, 
-            this.props.request_action, this.props.message_action, this.props.username, this.props.token)
+            this.props.request_action, this.props.message_action, this.props.username, this.props.token, this.load_data)
     }
     
     componentDidMount() {
+        this.load_data()
+    }
+
+    load_data = () => {
         NetworkAPI.load_patient_overview(this.props.username, this.props.token).then(overview => {
             this.setState({
                 loaded: true,
