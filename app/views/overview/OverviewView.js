@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import HeaderController from '../../controllers/header/HeaderController'
 import SessionOverviewController from '../../controllers/sessions/SessionsOverviewController'
-import SessionRecorderController from '../../controllers/sessions/SessionRecorderController'
+import SessionRecorderController from '../../controllers/sessions/recording/SessionRecorderController'
 
 export default class OverviewController {
 

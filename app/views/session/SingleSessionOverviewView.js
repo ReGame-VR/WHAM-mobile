@@ -19,7 +19,7 @@ export default class SingleSessionOverviewView {
             improv = <Text>Improvement: {this.get_percent_improvement()}%</Text>
         }
         return (
-        <View style={{width:"100%", height: "15%"}}>
+        <View style={{width:"100%", height: "20%"}}>
             <View style={{left: "2%", top: "2%", width: "98%", height:"98%"}}>
                 <View style={styles.arrow_container}>
                     <View style={{position: "relative", flex: 1}}>

@@ -15,11 +15,3 @@ export default class SingleSessionOverviewController extends React.Component {
     }
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        width: "100%",
-        backgroundColor: "green"
-    },
-  });

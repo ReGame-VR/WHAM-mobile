@@ -14,7 +14,11 @@ export default class SessionOverviewView{
     }
 
     render(sessions, stage) {
-        return <View style={styles.container}>{this.get_inner_part(sessions, stage)}</View>
+        return (
+        <View style={styles.container}>
+            {this.get_inner_part(sessions, stage)}
+        </View>
+        )
     }
 
     get_inner_part(sessions, stage) {
@@ -27,7 +31,7 @@ export default class SessionOverviewView{
 
     render_overview(sessions) {
         var contents = []
-        for(var i = sessions.length-1; i >= 0; i--) {
+        for(var i = sessions.length-1; i >= Math.max(0, sessions.length-5); i--) {
             prev_score = undefined;
             if(i !== 0) {
                 prev_score = sessions[i-1].get_average_score()
@@ -37,7 +41,11 @@ export default class SessionOverviewView{
         }
         return <View style={{width: "100%", height: "100%"}}>
                     <View style={{height: "50%"}}>
-                        {contents}
+                        <View style={{height: "5%"}}></View>
+                        <View style={{height: "90%"}}>
+                            {contents}
+                        </View>
+                        <View style={{height: "5%"}}></View>
                     </View>
                     <View style={{height:"50%"}}>
                         {this.get_bar_chart(sessions)}
