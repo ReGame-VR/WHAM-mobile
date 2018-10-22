@@ -16,7 +16,7 @@ export default class HeaderView {
 
     render() {
         return <View style={styles.container}>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{flexDirection: 'row', top: 20}}>
                         <MessageButtonController messages={this.messages} style={{alignSelf: 'flex-start', flex: 1}} action={this.message_action}></MessageButtonController>
                         <View style={{flex: 1}}></View>
                         <RequestButtonController requests={this.requests} style={{alignSelf: 'flex-end', flex: 1}} action={this.request_action}></RequestButtonController>
@@ -39,9 +39,7 @@ export default class HeaderView {
 const styles = StyleSheet.create({
     container: {
       height: "20%",
-      backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: "red"
     },
   });
