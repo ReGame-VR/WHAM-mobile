@@ -21,7 +21,11 @@ export default class SessionGraphView {
             backgroundGradientFrom: 'rgb(255,255,255)',
             backgroundGradientTo: 'rgb(255,255,255)',
             color: (opacity = 1) => {
-                return `rgba(${255-Math.round(255*opacity)}, ${255-Math.round(255*opacity)}, ${255-Math.round(255*opacity)}, ${2*opacity})`;
+                if(opacity != 0.15) {
+                    return 'rgb(0, 0, 0)'
+                } else {
+                    return `rgba(${255-Math.round(255*opacity)}, ${255-Math.round(255*opacity)}, ${255-Math.round(255*opacity)}, ${2*opacity})`;
+                }
             },
             style: {
                 borderRadius: 16
@@ -39,7 +43,7 @@ export default class SessionGraphView {
                 <Text style={{alignSelf:"center"}}>Contribution Graph</Text>
                 <ContributionGraph
                     values={ data }
-                    endDate={new Date("2016-02-28")}
+                    endDate={new Date()}
                     numDays={105}
                     style={{left: 0}}
                     width={ screenWidth - 10 }

@@ -1,31 +1,33 @@
 import React from 'react'
 import SessionQuestionairView from '../../../views/session/recording/SessionQuestionairView'
+import NetworkAPI from '../../../helpers/NetworkAPI';
 
 export default class SessionQuestionairController extends React.Component {
 
     constructor(props) {
         super(props)
-        this.view  = new SessionQuestionairView(this.stop_questioning, this.advance_stage, this.set_item)
+        this.view  = new SessionQuestionairView(this.stop_questioning, this.set_item)
         this.state = {
             stage: 0
         }
     }
 
-    advance_stage = () => {
+
+    set_item = (id, val) => {
         this.setState({
+            [id]: val,
             stage: this.state.stage += 1
         })
     }
 
-    set_item = (id, val) => {
-        this.setState({
-            [id]: val
-        })
-    }
-
     stop_questioning = () => {
-        // Also should send the session details
-        this.props.stop_questioning()
+        this.props.session.set_engagement(this.state.engagement)
+        this.props.session.set_motivation(this.state.motivation)
+        this.props.session.set_effort(this.state.effort)
+        NetworkAPI.send_session_details(this.props.session.to_json(), this.props.username, this.props.token).then(() => {
+            this.props.stop_questioning()
+            this.props.loader()
+        })
     }
 
     render() {

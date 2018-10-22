@@ -10,8 +10,8 @@ export default class ScoreModel {
     // Turns this score to JSON
     to_json() {
         var yr = this.time.getFullYear()
-        var mth = this.time.getMonth()
-        var day = this.time.getDay()
+        var mth = this.time.getMonth()+1
+        var day = this.time.getDate()
         var hr = this.time.getHours()
         var min = this.time.getMinutes()
         var sec = this.time.getSeconds()

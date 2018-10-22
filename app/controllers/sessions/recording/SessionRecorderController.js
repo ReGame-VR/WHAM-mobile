@@ -12,7 +12,7 @@ export default class SessionRecorderController extends React.Component {
 
     constructor(props) {
         super(props)
-        this.view = new SessionRecorderView(this.start_recording, this.stop_recording, this.stop_questioning);
+        this.view = new SessionRecorderView(this.start_recording, this.stop_recording, this.stop_questioning, this.props.username, this.props.token, this.props.loader);
         this.state = {
             recording: false,
             questioning: false

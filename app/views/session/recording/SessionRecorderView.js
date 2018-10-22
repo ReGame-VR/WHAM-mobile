@@ -4,15 +4,18 @@ import SessionQuestionairController from '../../../controllers/sessions/recordin
 
 export default class SessionRecorderView {
 
-    constructor(start_recording, stop_recording, stop_questioning) {
+    constructor(start_recording, stop_recording, stop_questioning, username, token, loader) {
         this.start_recording = start_recording 
         this.stop_recording = stop_recording
         this.stop_questioning = stop_questioning
+        this.username = username
+        this.token = token
+        this.loader = loader
     }
 
     render(recording, session, questioning) {
         if(questioning) {
-            return <SessionQuestionairController session={session} stop_questioning= {this.stop_questioning}></SessionQuestionairController>
+            return <SessionQuestionairController loader={this.loader} username={this.username} token={this.token} session={session} stop_questioning= {this.stop_questioning}></SessionQuestionairController>
         } 
         if(recording) {
             return (
