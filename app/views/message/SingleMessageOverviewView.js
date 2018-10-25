@@ -13,8 +13,13 @@ export default class SingleMessageOverviewView {
     render(message) {
         return (
         <View>
-            <Button onPress={this.show_message_contents} title="Show Message"></Button>
-            <Text>{message.contents}</Text>
+            <View>
+                <Text>{"Contents: " + message.contents.substring(0,15) + "..."}</Text>
+                <Text>{"From: " + message.therapistID}</Text>
+            </View>
+            <View style={{position: "absolute", right: 0, width: "40%", height: "100%"}}>
+                <Button onPress={this.show_message_contents} title="Show Message"></Button>
+            </View>
         </View>
         )
     }

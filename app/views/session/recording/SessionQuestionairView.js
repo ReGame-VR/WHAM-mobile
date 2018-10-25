@@ -26,7 +26,7 @@ class ItemRater extends React.Component {
 
      render() {
         return (
-            <View>
+            <View style={{top: -15}}>
                 <Text style={{textAlign: "center", fontSize: 20, height: 25}}>{this.props.id}</Text>
                 <View style={{flexDirection: "row"}}>
                     {this.get_item(0)}

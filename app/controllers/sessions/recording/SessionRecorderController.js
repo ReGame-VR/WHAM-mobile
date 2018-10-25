@@ -53,7 +53,7 @@ export default class SessionRecorderController extends React.Component {
                 return
             }
             var state_session = this.state.session
-            state_session.add_score(Math.random(), new Date())
+            state_session.add_score((Math.random()*100)^2, new Date())
             this.setState({
                 session: state_session
             })

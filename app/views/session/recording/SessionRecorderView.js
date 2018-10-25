@@ -19,14 +19,14 @@ export default class SessionRecorderView {
         } 
         if(recording) {
             return (
-                <View style={{height: "10%", backgroundColor: "yellow"}}>
+                <View style={{height: "10%"}}>
                     <Text>Time: {Math.round(100*session.get_total_length())/100}</Text>
                     <Button onPress={this.stop_recording} title="Stop Recording"></Button>
                 </View>
                 )
         } else {
             return (
-                <View style={{height: "10%", backgroundColor: "yellow"}}>
+                <View style={{height: "10%"}}>
                     <Button onPress={this.start_recording} title="Record Session"></Button>
                 </View>
                 )
