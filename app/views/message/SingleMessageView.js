@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, ScrollView, TextInput, Button } from 'react-native'
 import NetworkAPI from '../../helpers/NetworkAPI';
 import ReplyModel from '../../models/messages/ReplyModel'
+import { tan_gray, silver } from '../../helpers/Colors'
 
 /**
  * Gives a detailed view for a single message
@@ -19,18 +20,21 @@ export default class SingleMessageView {
         if(loaded) {
             var replies_object = message.replies
             for(var i = 0; i < replies_object.length; i++) {
-                replies.push(<Text key={Math.random()}>{replies_object[i].reply_content}</Text>)
+                replies.push(<Text key={Math.random()}>{"    " + replies_object[i].sentID + ": " + replies_object[i].reply_content}</Text>)
             }
             return (
-            <ScrollView>
-                <Text>{message.contents}</Text>
+            <ScrollView style={{marginTop: 20, left: "3%", width: "94%"}}>
+                <Text style={{fontSize: 20}}>{"From: " + message.therapistID}</Text>
+                <Text style={{fontSize: 20}}>{"To: " + message.patientID}</Text>
+                <Text style={{fontSize: 20}}>{"Contents: " + message.contents}</Text>
+                {replies}
                 <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={{height: 40, borderColor: silver, borderWidth: 1, backgroundColor: tan_gray}}
                     onChangeText={this.reply_action}
                     value={reply_text}
+                    placeholder="Reply"
                 />
                 <Button title="Send Reply" onPress={this.send_reply}></Button>
-                {replies}
             </ScrollView>
             )
         } else {

@@ -14,7 +14,7 @@ export default class SingleMessageController extends React.Component {
         super(props)
         this.state = {
             loaded: false,
-            reply_text: "Reply"
+            reply_text: undefined
         }
         this.view = new SingleMessageView(this.send_reply, (text) => this.setState({reply_text: text}))
     }
@@ -37,7 +37,7 @@ export default class SingleMessageController extends React.Component {
             var next_message = this.state.message
             next_message.replies.push(new ReplyModel(this.props.messageID, this.props.username, this.state.reply_text, new Date()))
             this.setState({
-                reply_text: "Reply",
+                reply_text: undefined,
                 message: next_message
             })
         })
