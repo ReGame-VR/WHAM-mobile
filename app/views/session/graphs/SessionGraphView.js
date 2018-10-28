@@ -1,6 +1,7 @@
 import React from 'react';
 import { ContributionGraph } from 'react-native-chart-kit'
 import { Dimensions, View, Text } from 'react-native'
+import { brown } from '../../../helpers/Colors'
 
 export default class SessionGraphView {
 
@@ -22,7 +23,7 @@ export default class SessionGraphView {
             backgroundGradientTo: 'rgb(255,255,255)',
             color: (opacity = 1) => {
                 if(opacity != 0.15) {
-                    return 'rgb(0, 0, 0)'
+                    return brown
                 } else {
                     return `rgba(${255-Math.round(255*opacity)}, ${255-Math.round(255*opacity)}, ${255-Math.round(255*opacity)}, ${2*opacity})`;
                 }

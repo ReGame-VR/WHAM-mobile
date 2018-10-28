@@ -23,16 +23,17 @@ export default class MessageOverviewView {
                 contents = []
                 for(var i = 0; i < messages.length; i++) {
                     contents.push(<SingleMessageOverviewController key={messages[i].messageID} message={messages[i]} action={this.show_message(messages[i].messageID)}></SingleMessageOverviewController>)
+                    contents.push(<View style={{height: "3%"}} key={Math.random()}></View>)
                 } 
             } else {
                 contents = <SingleMessageController messageID={stage} username={this.username} token={this.token}></SingleMessageController>
             }
             return (
-            <View>
-                <Text>FILLER</Text>
-                <Text>MESSAGES!</Text>
-                <Button onPress={this.back} title="back"></Button>
+            <View style={{top: "5%"}}>
+                <Text style={{textAlign: "center", fontSize: 25}}>Messages</Text>
+                <View style={{height: "3%"}} key={Math.random()}></View>
                 {contents}
+                <Button onPress={this.back} title="back"></Button>
             </View>
             )
         } else {
