@@ -1,7 +1,7 @@
 import React from 'react';
 import { ContributionGraph } from 'react-native-chart-kit'
 import { Dimensions, View, Text } from 'react-native'
-import { brown } from '../../../helpers/Colors'
+import { brown, background } from '../../../helpers/Colors'
 
 export default class SessionGraphView {
 
@@ -19,8 +19,8 @@ export default class SessionGraphView {
     render() {
         const screenWidth = Dimensions.get('window').width
         const chartConfig = {
-            backgroundGradientFrom: 'rgb(255,255,255)',
-            backgroundGradientTo: 'rgb(255,255,255)',
+            backgroundGradientFrom: background,
+            backgroundGradientTo: background,
             color: (opacity = 1) => {
                 if(opacity != 0.15) {
                     return brown
@@ -29,6 +29,7 @@ export default class SessionGraphView {
                 }
             },
             style: {
+                backgroundColor: background,
                 borderRadius: 16
               }
         }
@@ -40,17 +41,17 @@ export default class SessionGraphView {
             })
         }
         return (
-            <View style={{alignContent:'center', height:"100%"}}>
+            <View style={{alignContent:'center', height:"100%", backgroundColor: background}}>
                 <Text style={{alignSelf:"center"}}>Contribution Graph</Text>
-                <ContributionGraph
+                <ContributionGraph 
                     values={ data }
                     endDate={new Date()}
                     numDays={105}
                     style={{left: 0}}
+                    bgColor={background}
                     width={ screenWidth - 10 }
                     height={220}
                     chartConfig={ chartConfig }
-                    bezier
                 >
                 </ContributionGraph>
             </View>

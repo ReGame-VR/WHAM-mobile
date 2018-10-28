@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import SingleSessionOverviewController from '../../controllers/sessions/SingleSessionOverviewController'
 import SingleSessionController from '../../controllers/sessions/SingleSessionController'
 import SessionGraphView from './graphs/SessionGraphView'
+import { background } from '../../helpers/Colors'
 
 export default class SessionOverviewView{
     
@@ -39,7 +40,7 @@ export default class SessionOverviewView{
             contents.push(<SingleSessionOverviewController session={sessions[i]} key={sessions[i].sessionID} previous_session_score={prev_score}
             action={this.action(sessions[i].sessionID)}></SingleSessionOverviewController>)
         }
-        return <View style={{width: "100%", height: "100%"}}>
+        return <View style={{width: "100%", height: "100%", backgroundColor: background}}>
                     <View style={{height: "50%"}}>
                         <View style={{height: "5%"}}></View>
                         <View style={{height: "90%"}}>
@@ -47,7 +48,7 @@ export default class SessionOverviewView{
                         </View>
                         <View style={{height: "5%"}}></View>
                     </View>
-                    <View style={{height:"50%"}}>
+                    <View style={{height:"50%", backgroundColor: background}}>
                         {this.get_bar_chart(sessions)}
                     </View>
                 </View>

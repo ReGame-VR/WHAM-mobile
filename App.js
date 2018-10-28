@@ -7,6 +7,8 @@ import MessageOverviewController from './app/controllers/messages/MessageOvervie
 import RequestController from './app/controllers/requests/RequestController'
 import SettingsController from './app/controllers/account/SettingsController'
 import CreateController from './app/controllers/account/CreateController'
+import LoadingScreen from './app/controllers/LoadingView'
+import { background } from './app/helpers/Colors'
 
 var LOADING_STAGE = 0
 var LOGIN_STAGE = 1
@@ -51,8 +53,14 @@ export default class App extends React.Component {
   }
 
   render() {
+    return <View style={{backgroundColor: background, height: "100%", width: "100%"}}>
+      {this.get_sub_part()}
+    </View>
+  }
+
+  get_sub_part() {
     if(this.state.stage === LOADING_STAGE) {
-      return <View><Text>Loading</Text></View>
+      return <LoadingScreen></LoadingScreen>
     } else if(this.state.stage === LOGIN_STAGE) {
       return <LoginController done={this.hasLoggedIn()} create={this.create_account()}/>
     } else if(this.state.stage === OVERVIEW_STAGE) {

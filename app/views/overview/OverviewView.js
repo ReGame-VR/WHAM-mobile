@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import HeaderController from '../../controllers/header/HeaderController'
 import SessionOverviewController from '../../controllers/sessions/SessionsOverviewController'
 import SessionRecorderController from '../../controllers/sessions/recording/SessionRecorderController'
+import LoadingScreen from '../../controllers/LoadingView'
+import { background } from '../../helpers/Colors'
 
 export default class OverviewController {
 
@@ -18,7 +20,7 @@ export default class OverviewController {
 
     render(loaded, requests, messages, sessions) {
         if(loaded) {
-            return <View>
+            return <View style={{backgroundColor: background}}>
                         <HeaderController logout={this.logout_action} requests={requests} messages={messages}
                         message_action={this.message_action} request_action={this.request_action} settings={this.settings_action}
                         ></HeaderController>
@@ -27,7 +29,7 @@ export default class OverviewController {
                         <SessionRecorderController username={this.username} token={this.token} loader={this.loader}></SessionRecorderController>
                     </View>
         } else {
-            return <View><Text>Loading</Text></View>
+            return <LoadingScreen></LoadingScreen>
         }
     }
 

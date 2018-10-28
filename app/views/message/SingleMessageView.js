@@ -3,6 +3,7 @@ import { Text, ScrollView, TextInput, Button } from 'react-native'
 import NetworkAPI from '../../helpers/NetworkAPI';
 import ReplyModel from '../../models/messages/ReplyModel'
 import { tan_gray, silver } from '../../helpers/Colors'
+import LoadingScreen from '../../controllers/LoadingView'
 
 /**
  * Gives a detailed view for a single message
@@ -38,7 +39,7 @@ export default class SingleMessageView {
             </ScrollView>
             )
         } else {
-            return <Text>Loading</Text>
+            return <LoadingScreen></LoadingScreen>
         }
     }
  

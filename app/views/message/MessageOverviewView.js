@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TextInput, Button, AsyncStorage} from 'react-na
 import NetworkAPI from '../../helpers/NetworkAPI'
 import SingleMessageOverviewController from '../../controllers/messages/SingleMessageOverviewController'
 import SingleMessageController from '../../controllers/messages/SingleMessageController'
+import LoadingScreen from '../../controllers/LoadingView'
+import { background } from '../../helpers/Colors'
 
 /**
  * Gives an overview for every message this user has sent or received
@@ -29,7 +31,7 @@ export default class MessageOverviewView {
                 contents = <SingleMessageController messageID={stage} username={this.username} token={this.token}></SingleMessageController>
             }
             return (
-            <View style={{top: "5%"}}>
+            <View style={{top: "5%", backgroundColor: background}}>
                 <Text style={{textAlign: "center", fontSize: 25}}>Messages</Text>
                 <View style={{height: "3%"}} key={Math.random()}></View>
                 {contents}
@@ -37,7 +39,7 @@ export default class MessageOverviewView {
             </View>
             )
         } else {
-            return <Text>Loading</Text>
+            return <LoadingScreen></LoadingScreen>
         }
     }
     
