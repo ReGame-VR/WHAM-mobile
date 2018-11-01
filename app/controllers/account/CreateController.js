@@ -13,8 +13,8 @@ export default class CreateController extends React.Component {
             date:"2016-05-15",
             height: 5,
             weight: 1,
-            username_text: "username",
-            password_text: "password",
+            username_text: "",
+            password_text: "",
             warning: ""
         }
         this.view = new CreateView((text) => this.setState({username_text: text}),

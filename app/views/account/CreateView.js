@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View, Button, Picker, TextInput } from 'react-native'
 import DatePicker from 'react-native-datepicker'
+import { FormInput } from 'react-native-elements'
 
 export default class CreateView {
 
@@ -25,18 +26,20 @@ export default class CreateView {
         } else if(stage === 3) {
             contents = this.get_height_selector(this.height_action, height)
         } else if(stage === 4) {
-            contents = [<TextInput
+            contents = [<FormInput
                 key="username"
                 style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                 onChangeText={this.username_action}
                 value={username_text}
+                placeholder="username"
             />,
-            <TextInput
+            <FormInput
                 key="password"
                 style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                 secureTextEntry={true}
                 onChangeText={this.password_action}
                 value={password_text}
+                placeholder="password"
             />,
             <Text key="warn">{warning}</Text>];
         }

@@ -9,6 +9,7 @@ import SettingsController from './app/controllers/account/SettingsController'
 import CreateController from './app/controllers/account/CreateController'
 import LoadingScreen from './app/controllers/LoadingView'
 import { background } from './app/helpers/Colors'
+import { MaterialIcons } from '@expo/vector-icons'
 
 var LOADING_STAGE = 0
 var LOGIN_STAGE = 1
@@ -48,7 +49,8 @@ export default class App extends React.Component {
       }
     }
     Font.loadAsync({
-      "FontAwesome": require('./app/assets/fonts/FontAwesome.ttf')
+      "FontAwesome": require('./app/assets/fonts/FontAwesome.ttf'),
+      "Material Icons": require('@expo/vector-icons/fonts/MaterialIcons.ttf')
     }).then(() => _retrieveData())
   }
 

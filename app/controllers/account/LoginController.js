@@ -8,8 +8,8 @@ export default class LoginController extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username_text: "username",
-            password_text: "password",
+            username_text: "",
+            password_text: "",
             warning: ""
         }
         this.view = new LoginView((text) => this.setState({username_text: text}), (text) => this.setState({password_text: text}), this.login, this.props.create)

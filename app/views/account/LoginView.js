@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, AsyncStorage} from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { Button, FormInput } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class LoginView {
     
@@ -14,23 +16,32 @@ export default class LoginView {
         return (
             <View style={styles.container}>
                 <Text>{warning}</Text>
-                <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                <FormInput
+                    containerStyle={{left: "2%", width: "98%"}}
+                    placeholder='username'
                     onChangeText={this.change_username}
                     value={username_text}
+                    autoCapitalize="none"
                 />
-                <TextInput
+                <FormInput
+                    containerStyle={{left: "2%", width: "98%"}}
+                    placeholder='password'
                     style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                     secureTextEntry={true}
                     onChangeText={this.change_password}
                     value={password_text}
+                    autoCapitalize="none"
                 />
                 <Button
+                    icon={{name: 'sign-in', type: 'font-awesome'}}
+                    buttonStyle={{borderRadius: 5, marginTop: 5}}
                     onPress={this.login}
                     title="Login"
                     color="#841584"
                 />
                 <Button
+                    icon={{name: 'user', type: 'font-awesome'}}
+                    buttonStyle={{borderRadius: 5, marginTop: 5}}
                     onPress={this.create}
                     title="Create Account"
                     color="#841584"
