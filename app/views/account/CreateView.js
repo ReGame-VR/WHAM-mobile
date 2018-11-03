@@ -61,7 +61,7 @@ export default class CreateView {
         }
         return this.get_selector(options, func, cur)
     }
-
+    
     get_height_selector(func, cur) {
         var options = []
         for(var i = 5; i < 108; i++) {

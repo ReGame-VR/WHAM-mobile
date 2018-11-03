@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, AsyncStorage} from 'react-native';
+import { StyleSheet, Text, View, TextInput, AsyncStorage} from 'react-native';
 import MessageButtonController from '../../controllers/header/MessageButtonController'
 import RequestButtonController from '../../controllers/header/RequestButtonController'
+import { Button } from 'react-native-elements'
 
 export default class HeaderView {
 
@@ -22,11 +23,13 @@ export default class HeaderView {
                         <RequestButtonController requests={this.requests} style={{alignSelf: 'flex-end', flex: 1}} action={this.request_action}></RequestButtonController>
                     </View>
                     <Button
+                        buttonStyle={button_style}
                         onPress={this.logout}
                         title="Logout"
                         color="#841584"
                     />
                     <Button
+                        buttonStyle={button_style}
                         onPress={this.settings_action}
                         title="Settings"
                         color="#841584"
@@ -34,6 +37,11 @@ export default class HeaderView {
                 </View>
     }
 
+}
+
+const button_style = {
+    marginTop: "4%",
+    borderRadius: 20
 }
 
 const styles = StyleSheet.create({

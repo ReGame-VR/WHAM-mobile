@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dimensions } from 'react-native'
 import { LineChart } from 'react-native-chart-kit'
+import { background } from '../../../helpers/Colors'
 
 export default class SingleSessionGraphView {
 
@@ -19,8 +20,8 @@ export default class SingleSessionGraphView {
         const screenWidth = Dimensions.get('window').width
 
         const chartConfig = {
-            backgroundGradientFrom: 'rgb(255,255,255)',
-            backgroundGradientTo: 'rgb(255,255,255)',
+            backgroundGradientFrom: background,
+            backgroundGradientTo: background,
             color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`
         }
         return (
