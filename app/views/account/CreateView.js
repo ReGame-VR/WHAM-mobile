@@ -1,7 +1,7 @@
 import React from 'react'
-import { Text, View, Button, Picker, TextInput } from 'react-native'
+import { View, Picker, TextInput, StyleSheet } from 'react-native'
 import DatePicker from 'react-native-datepicker'
-import { FormInput } from 'react-native-elements'
+import { FormInput, Button, Text} from 'react-native-elements'
 
 export default class CreateView {
 
@@ -17,39 +17,51 @@ export default class CreateView {
 
     render(stage, date, height, weight, username_text, password_text, warning) {
         var contents;
-        if(stage === 0) {
-            contents = <Text>C1</Text>
-        } else if(stage === 1) {
+        var title;
+        if(stage === 1) {
             contents = this.get_date_picker(this.date_action, date)
+            title = <Text>Select Your Birthday</Text>
         } else if(stage === 2) {
             contents = this.get_weight_selector(this.weight_action, weight)
+            title = <Text>Select Your Weight</Text>
         } else if(stage === 3) {
             contents = this.get_height_selector(this.height_action, height)
+            title = <Text>Select Your Height</Text>
         } else if(stage === 4) {
             contents = [<FormInput
                 key="username"
-                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                containerStyle={{left: "2%", width: "98%"}}
+                placeholder='username'
                 onChangeText={this.username_action}
                 value={username_text}
-                placeholder="username"
+                autoCapitalize="none"
             />,
             <FormInput
                 key="password"
+                containerStyle={{left: "2%", width: "98%"}}
+                placeholder='password'
                 style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                 secureTextEntry={true}
                 onChangeText={this.password_action}
                 value={password_text}
-                placeholder="password"
+                autoCapitalize="none"
             />,
             <Text key="warn">{warning}</Text>];
+            title = <Text>Select Your Username/Password</Text>
         }
         return (
-            <View>
-                <Text>CREATE</Text>
-                <Text>CREATE</Text>
-                <Button title="back" onPress={this.login}></Button>
-                <Button title="next" onPress={this.next_stage}></Button>
+            <View style={styles.container}>
+                {title}
                 {contents}
+                <Button title="next" 
+                onPress={this.next_stage} 
+                buttonStyle={styles.button}
+                icon={{name: 'arrow-right', type: 'font-awesome'}}></Button>
+                <Button title="back" 
+                onPress={this.login} 
+                buttonStyle={styles.button}
+                icon={{name: 'arrow-left', type: 'font-awesome'}}></Button>
+                
             </View>
         )
     }
@@ -57,7 +69,10 @@ export default class CreateView {
     get_weight_selector(func, cur) {
         var options = []
         for(var i = 1; i < 400; i++) {
-            options.push(i.toString())
+            options.push({
+                val:i.toString() + " lbs",
+                key:i.toString()
+            })
         }
         return this.get_selector(options, func, cur)
     }
@@ -65,7 +80,10 @@ export default class CreateView {
     get_height_selector(func, cur) {
         var options = []
         for(var i = 5; i < 108; i++) {
-            options.push(i.toString())
+            options.push({
+                val: Math.floor(i/12).toString() + "' " + (i%12).toString() + "\"",
+                key:i.toString()
+            })
         }
         return this.get_selector(options, func, cur)
     }
@@ -73,11 +91,11 @@ export default class CreateView {
     get_selector(options, func, cur) {
         var contents = [];
         for(var i = 0; i < options.length; i++) {
-            contents.push(<Picker.Item label={options[i]} value={options[i]} key={options[i]}></Picker.Item>)
+            contents.push(<Picker.Item label={options[i].val} value={options[i].key} key={options[i].key}></Picker.Item>)
         }
         return <Picker
         selectedValue={cur}
-        style={{ height: 50, width: 100 }}
+        style={{ height: 200, width: 100 }}
         onValueChange={func}>
         {contents}
       </Picker>
@@ -107,3 +125,16 @@ export default class CreateView {
     }
  
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    button: {
+        borderRadius: 5, 
+        marginTop: 5
+    }
+  });

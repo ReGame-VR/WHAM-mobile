@@ -9,7 +9,7 @@ export default class CreateController extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            stage: 0,
+            stage: 1,
             date:"2016-05-15",
             height: 5,
             weight: 1,

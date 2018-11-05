@@ -40,13 +40,15 @@ export default class NetworkAPI {
             height: height,
             information: information
         }
-        var URL = main_url + "/patients"
+        var URL = main_url + "/register/patient"
         return this.my_fetch(URL, {
             method: "POST",
             body: JSON.stringify(body)
         }).then(response => {
             return response.json()
-        }).then(json => json.token)
+        }).then(json => {
+            return json.token
+        })
     }
 
     // String String -> Promise(PatientOverviewModel)
