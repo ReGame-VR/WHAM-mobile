@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import { Button, FormInput } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class LoginView {
     

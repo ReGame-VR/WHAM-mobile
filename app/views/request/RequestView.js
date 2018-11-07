@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, Button, AsyncStorage} from 'react-native';
+import { View, AsyncStorage} from 'react-native';
+import { Button } from 'react-native-elements';
 import NetworkAPI from '../../helpers/NetworkAPI'
 import SingleRequestController from '../../controllers/requests/SingleRequestController'
 
@@ -25,7 +26,11 @@ export default class RequestView {
         return (
             <View style={{top: "10%"}}>
                 {contents}
-                <Button onPress={this.back} title="back" key="button"></Button>
+                <Button onPress={this.back} 
+                title="back" 
+                key="button"
+                icon={{name: 'arrow-left', type: 'font-awesome', color: "orange"}}
+                buttonStyle={{width: "30%", alignSelf: "center", marginTop: 20, borderRadius: 20}}></Button>
             </View>
             )
     }

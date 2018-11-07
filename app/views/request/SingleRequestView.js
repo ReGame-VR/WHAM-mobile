@@ -1,5 +1,6 @@
 import React from 'react'
-import { Text, View, Button } from 'react-native'
+import { Text, View } from 'react-native'
+import { Button } from 'react-native-elements'
 import NetworkAPI from '../../helpers/NetworkAPI'
 
 export default class SingleRequestView {
@@ -12,8 +13,10 @@ export default class SingleRequestView {
     render() {
         return (
             <View>
-                <Text>{this.therapistID}</Text>
-                <Button title="Accept Request" onPress={this.accept_request}></Button>
+                <Button title={"Accept Request From " + this.therapistID} 
+                onPress={this.accept_request}
+                buttonStyle={{borderRadius: 20}}
+                icon={{name: 'check', type: 'font-awesome', color: "green"}}></Button>
             </View>
         )
     }
