@@ -1,8 +1,9 @@
 import React from 'react'
 import { View, AsyncStorage} from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Text} from 'react-native-elements';
 import NetworkAPI from '../../helpers/NetworkAPI'
 import SingleRequestController from '../../controllers/requests/SingleRequestController'
+import { black } from '../../helpers/Colors'
 
 export default class RequestView {
 
@@ -22,6 +23,11 @@ export default class RequestView {
                     key={requests[i].userID} therapistID={requests[i].userID}
                     remove_request={this.remove_request}/>)
             }
+        }
+        if(contents.length === 0) {
+            contents = <Text
+            style={{alignSelf: "center", fontSize: 30}}
+            >No Pending Requests 😊</Text>
         }
         return (
             <View style={{top: "10%"}}>
