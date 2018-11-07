@@ -27,6 +27,11 @@ export default class MessageOverviewView {
                     contents.push(<SingleMessageOverviewController key={messages[i].messageID} message={messages[i]} action={this.show_message(messages[i].messageID)}></SingleMessageOverviewController>)
                     contents.push(<View style={{height: "3%"}} key={Math.random()}></View>)
                 } 
+                if(contents.length === 0) {
+                    contents = <Text
+                    style={{alignSelf: "center", fontSize: 30}}
+                    >No Messages Sent</Text>
+                }
             } else {
                 contents = <SingleMessageController messageID={stage} username={this.username} token={this.token}></SingleMessageController>
             }
