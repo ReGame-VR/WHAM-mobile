@@ -13,6 +13,7 @@ import expolib_v1.okhttp3.OkHttpClient;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.SvgPackage;
 import com.polidea.reactnativeble.BlePackage;
+import expo.adapters.react.ModuleRegistryAdapter;
 
 public class MainApplication extends ExpoApplication {
 
@@ -31,7 +32,8 @@ public class MainApplication extends ExpoApplication {
         // new MainReactPackage(),
             new VectorIconsPackage(),
             new SvgPackage(),
-            new BlePackage()
+            new BlePackage(),
+            new ModuleRegistryAdapter()
     );
   }
 

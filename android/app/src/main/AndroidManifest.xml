@@ -17,11 +17,6 @@
   <uses-permission android:name="android.permission.WAKE_LOCK" />
 
   <!-- ADD PERMISSIONS HERE -->
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
-
   <!-- BEGIN OPTIONAL PERMISSIONS -->
   <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
   <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
@@ -177,7 +172,7 @@
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="expo.modules.payments.stripe.fc7e7d57-eb3b-4a32-a0de-2d77f55ecf28" />
+            <data android:scheme="expo.modules.payments.stripe.e26d1738-7099-415f-980c-3690e826ce10" />
         </intent-filter>
     </activity>
     <!-- Versioned Activity for Stripe -->
@@ -320,7 +315,7 @@
     <!-- The Facebook SDK runs FacebookInitProvider on startup and crashes if there isn't an ID here -->
     <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="fb0"/>
 
-    <meta-data android:name="standaloneStripeScheme" android:value="fc7e7d57-eb3b-4a32-a0de-2d77f55ecf28" />
+    <meta-data android:name="standaloneStripeScheme" android:value="e26d1738-7099-415f-980c-3690e826ce10" />
   </application>
 
 </manifest>
