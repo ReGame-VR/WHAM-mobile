@@ -1,12 +1,10 @@
 {
-  "name": "empty-project-template",
-  "main": "node_modules/expo/AppEntry.js",
+  "name": "wham",
   "private": true,
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "eject": "expo eject",
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "test": "jest --coverage"
   },
   "rnpm": {
@@ -15,20 +13,12 @@
     ]
   },
   "dependencies": {
-    "@expo/vector-icons": "^8.0.0",
-    "eslint": "^3.19.0",
-    "expo": "^30.0.2",
-    "expo-cli": "^2.3.8",
-    "expo-file-system": "^1.1.0",
-    "expo-font-interface": "^1.1.0",
-    "expo-react-native-adapter": "^1.2.0",
-    "expokit": "^31.0.1",
     "jest": "^23.6.0",
     "node-fetch": "^2.2.1",
     "react": "^16.6.1",
     "react-devtools-core": "^3.4.2",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
-    "react-native-ble-plx": "^1.0.0",
+    "react-native": "^0.57.5",
+    "react-native-ble-plx": "Polidea/react-native-ble-plx",
     "react-native-chart-kit": "^1.1.9",
     "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^0.19.1",
