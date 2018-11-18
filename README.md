@@ -11,10 +11,14 @@ These steps led us to SCADE - a cross-platform library coded in Swift. It sounde
 Then we went back to the drawing board, and it came down to two: Flutter and React Native. In the end we chose React Native because it's well used, not in beta, and coded in JavaScript which means code can be substituted with the API if need be.
 
 Dependencies to Install:
-
+1. Node.js
+2. Watchman
+3. Carthage (only maybe - I don't know if this is actually necessary)
+4. iOS Only: You must be running MacOS and have the latest version of XCode installed.
+5. Android Only: You must have Android Studio and ADB installed.
 
 Installation Process:
 
 1. Clone/Download Repository.
-2. run npm install.
-3. 
+2. Run npm install.
+3. Use "react-native run-ios" or "react-native run-android"
