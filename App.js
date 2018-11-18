@@ -18,134 +18,140 @@ var SETTINGS_STAGE = 5
 var CREATE_STAGE = 6
 
 
-export default class App extends React.Component {
+export default function() {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      stage: 0 // 0 = Loading, 1 = Logging, 2=Overview, 3=Messages
+  class App extends React.Component {
+
+    constructor(props) {
+      super(props)
+      this.state = {
+        stage: 0 // 0 = Loading, 1 = Logging, 2=Overview, 3=Messages
+      }
     }
-  }
-
-  componentDidMount() {
-    _retrieveData = async () => {
-      try {
-        const value = JSON.parse(await AsyncStorage.getItem('LOGIN'));
-        if (value !== null) {
+  
+    componentDidMount() {
+      _retrieveData = async () => {
+        try {
+          const value = JSON.parse(await AsyncStorage.getItem('LOGIN'));
+          if (value !== null) {
+            this.setState({
+              stage: OVERVIEW_STAGE,
+              username: value.username,
+              token: value.token
+            })
+          } else {
+            throw new Error("No Login")
+          }
+         } catch (error) {
+          this.setState({
+            stage: LOGIN_STAGE
+          })
+        }
+      }
+      _retrieveData()
+    }
+  
+    render() {
+      return <View style={{backgroundColor: background, height: "100%", width: "100%"}}>
+        {this.get_sub_part()}
+      </View>
+    }
+  
+    get_sub_part() {
+      if(this.state.stage === LOADING_STAGE) {
+        return <LoadingScreen></LoadingScreen>
+      } else if(this.state.stage === LOGIN_STAGE) {
+        return <LoginController done={this.hasLoggedIn()} create={this.create_account()}/>
+      } else if(this.state.stage === OVERVIEW_STAGE) {
+        return <OverviewController username={this.state.username} token={this.state.token} logout={this.logout()}
+        message_action={this.message_action()} request_action={this.request_action()} settings={this.settings()}
+        />
+      } else if(this.state.stage === MESSAGE_STAGE) {
+        return <MessageOverviewController username={this.state.username} token={this.state.token} back={this.go_to_overview()}/>
+      } else if(this.state.stage === REQUEST_STAGE) {
+        return <RequestController username={this.state.username} token={this.state.token} back={this.go_to_overview()}/>
+      } else if(this.state.stage === SETTINGS_STAGE) {
+        return <SettingsController username={this.state.username} token={this.state.token} back={this.go_to_overview()}/>
+      } else if(this.state.stage === CREATE_STAGE) {
+        return <CreateController login={this.login()} done={this.hasLoggedIn()}/>
+      }
+    }
+  
+    hasLoggedIn() {
+      return (username, token) => {
+        _storeData = async () => {
+          await AsyncStorage.setItem('LOGIN', JSON.stringify({
+              username: username,
+              token: token
+          }));
+        }
+        _storeData().then(() => {
           this.setState({
             stage: OVERVIEW_STAGE,
-            username: value.username,
-            token: value.token
+            username: username,
+            token: token
           })
-        } else {
-          throw new Error("No Login")
-        }
-       } catch (error) {
+        })
+      }
+    }
+  
+    go_to_overview() {
+      return () => {
+        this.setState({
+          stage: OVERVIEW_STAGE
+        })
+      }
+    }
+    
+    login() {
+      return () => {
         this.setState({
           stage: LOGIN_STAGE
         })
       }
     }
-  }
-
-  render() {
-    return <View style={{backgroundColor: background, height: "100%", width: "100%"}}>
-      {this.get_sub_part()}
-    </View>
-  }
-
-  get_sub_part() {
-    if(this.state.stage === LOADING_STAGE) {
-      return <LoadingScreen></LoadingScreen>
-    } else if(this.state.stage === LOGIN_STAGE) {
-      return <LoginController done={this.hasLoggedIn()} create={this.create_account()}/>
-    } else if(this.state.stage === OVERVIEW_STAGE) {
-      return <OverviewController username={this.state.username} token={this.state.token} logout={this.logout()}
-      message_action={this.message_action()} request_action={this.request_action()} settings={this.settings()}
-      />
-    } else if(this.state.stage === MESSAGE_STAGE) {
-      return <MessageOverviewController username={this.state.username} token={this.state.token} back={this.go_to_overview()}/>
-    } else if(this.state.stage === REQUEST_STAGE) {
-      return <RequestController username={this.state.username} token={this.state.token} back={this.go_to_overview()}/>
-    } else if(this.state.stage === SETTINGS_STAGE) {
-      return <SettingsController username={this.state.username} token={this.state.token} back={this.go_to_overview()}/>
-    } else if(this.state.stage === CREATE_STAGE) {
-      return <CreateController login={this.login()} done={this.hasLoggedIn()}/>
-    }
-  }
-
-  hasLoggedIn() {
-    return (username, token) => {
-      _storeData = async () => {
-        await AsyncStorage.setItem('LOGIN', JSON.stringify({
-            username: username,
-            token: token
-        }));
-      }
-      _storeData().then(() => {
-        this.setState({
-          stage: OVERVIEW_STAGE,
-          username: username,
-          token: token
-        })
-      })
-    }
-  }
-
-  go_to_overview() {
-    return () => {
-      this.setState({
-        stage: OVERVIEW_STAGE
-      })
-    }
-  }
   
-  login() {
-    return () => {
-      this.setState({
-        stage: LOGIN_STAGE
-      })
+    logout() {
+      return () => {
+        this.setState({
+          stage: LOGIN_STAGE
+        })
+      }
     }
-  }
+  
+    message_action() {
+      return () => {
+        this.setState({
+          stage: MESSAGE_STAGE
+        })
+      }
+    }
+  
+    request_action() {
+      return () => {
+        this.setState({
+          stage: REQUEST_STAGE
+        })
+      }
+    }
+  
+    settings() {
+      return () => {
+        this.setState({
+          stage: SETTINGS_STAGE
+        })
+      }
+    }
+  
+    create_account() {
+      return () => {
+        this.setState({
+          stage: CREATE_STAGE
+        })
+      }
+    }
+   }
 
-  logout() {
-    return () => {
-      this.setState({
-        stage: LOGIN_STAGE
-      })
-    }
-  }
-
-  message_action() {
-    return () => {
-      this.setState({
-        stage: MESSAGE_STAGE
-      })
-    }
-  }
-
-  request_action() {
-    return () => {
-      this.setState({
-        stage: REQUEST_STAGE
-      })
-    }
-  }
-
-  settings() {
-    return () => {
-      this.setState({
-        stage: SETTINGS_STAGE
-      })
-    }
-  }
-
-  create_account() {
-    return () => {
-      this.setState({
-        stage: CREATE_STAGE
-      })
-    }
-  }
- }
+   return App
+}
 

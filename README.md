@@ -10,13 +10,11 @@ These steps led us to SCADE - a cross-platform library coded in Swift. It sounde
 
 Then we went back to the drawing board, and it came down to two: Flutter and React Native. In the end we chose React Native because it's well used, not in beta, and coded in JavaScript which means code can be substituted with the API if need be.
 
+Dependencies to Install:
+
+
 Installation Process:
 
 1. Clone/Download Repository.
 2. run npm install.
-3. Within XCode in the wham-mobile.xcworkspace project do as follows:
-    In youre-app-name → Libraries →BLEClient.xcodeproj → Build Settings → Header Search Paths add the following paths (the order is important and setting them to be recursive):
-    ${SRCROOT}/../../../ios/Pods/Headers/Public
-    $(SRCROOT)/../../react-native/React
-
-4. 
+3. 
