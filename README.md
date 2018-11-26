@@ -22,3 +22,7 @@ Installation Process:
 1. Clone/Download Repository.
 2. Run npm install.
 3. Use "react-native run-ios" or "react-native run-android"
+
+Questions:
+
+1. I found that the WHAM device UUID might be "025A7775-49AA-42BD-BBDB-E2AE77782966", but what will it be in production?

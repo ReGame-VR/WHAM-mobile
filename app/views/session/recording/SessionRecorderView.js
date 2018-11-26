@@ -13,7 +13,7 @@ export default class SessionRecorderView {
         this.loader = loader
     }
 
-    render(recording, session, questioning) {
+    render(recording, session, questioning, status) {
         if(questioning) {
             return <SessionQuestionairController loader={this.loader} username={this.username} token={this.token} session={session} stop_questioning= {this.stop_questioning}></SessionQuestionairController>
         } 
@@ -21,6 +21,7 @@ export default class SessionRecorderView {
             return (
                 <View style={{height: "10%"}}>
                     <Text>Time: {Math.round(100*session.get_total_length())/100}</Text>
+                    <Text>{status}</Text>
                     <Button onPress={this.stop_recording} title="Stop Recording"></Button>
                 </View>
                 )
