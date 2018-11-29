@@ -26,3 +26,11 @@ Installation Process:
 Questions:
 
 1. I found that the WHAM device UUID might be "025A7775-49AA-42BD-BBDB-E2AE77782966", but what will it be in production?
+
+Mobile App Next Steps:
+1. Improve UI and UX.
+2. Improve the ways the data is displayed/what is displayed.
+3. Test mobile app with an actual patient.
+4. Add gamification to encourage use of the app.
+5. Improve UI and UX again.
+6. Publish to App Store.
