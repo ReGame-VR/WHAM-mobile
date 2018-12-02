@@ -1,4 +1,5 @@
 import React from 'react'
+import { Platform } from 'react-native'
 import SessionRecorderView from '../../../views/session/recording/SessionRecorderView'
 import SessionModel from '../../../models/sessions/SessionModel'
 import {
@@ -23,24 +24,9 @@ export default class SessionRecorderController extends React.Component {
             info: "",
             values: {}
         }
-        this.prefixUUID = "f000aa"
-        this.suffixUUID = "-0451-4000-b000-000000000000"
-        this.deviceUUID = "025A7775-49AA-42BD-BBDB-E2AE77782966"
-        this.sensors = {
-            1: "Gyroscope"
-        }
-    }
-
-    serviceUUID(num) {
-        return this.prefixUUID + num + "0" + this.suffixUUID
-    }
-
-    notifyUUID(num) {
-        return this.prefixUUID + num + "1" + this.suffixUUID
-    }
-
-    writeUUID(num) {
-        return this.prefixUUID + num + "2" + this.suffixUUID
+        this.prefixUUID;
+        this.sensors = [];
+        this.subscriptions = [];
     }
 
     scanAndConnect() {
@@ -55,8 +41,8 @@ export default class SessionRecorderController extends React.Component {
                     })
                     return
                 }
-
-                if (device.deviceUUID === this.deviceUUID) {
+                if (device.name === "WHAM") {
+                    this.deviceUUID = device.id;
                     this.setState({
                         ble_status: "Connecting To Device"
                     })
@@ -66,10 +52,10 @@ export default class SessionRecorderController extends React.Component {
                             return device.discoverAllServicesAndCharacteristics()
                         })
                         .then((device) => {
-                            this.monitorSessionData(device)
                             this.setState({
-                                ble_status: "Recording"
+                                ble_status: "Scanning Sensors"
                             })
+                            this.getAllSensors(device)
                         }).catch(err => {
                             this.setState({
                                 ble_status: "Could Not Connect To Device"
@@ -79,18 +65,46 @@ export default class SessionRecorderController extends React.Component {
             });
     }
 
+    getAllSensors(device) {
+        device.services().then(services => {
+            this.readServices(device, services, 0)
+        })
+    }
+
+    readServices(device, services, i) {
+        return this.getChar(services, i).then(() => {
+            if(i < services.length-1) {
+                i++;
+                this.readServices(device, services, i)
+            } else {
+                this.setState({
+                    ble_status: "Recording"
+                })
+                this.monitorSessionData(device)
+            }
+        })
+    }
+
+    getChar(services, serviceID) {
+        return services[serviceID].characteristics().then(chars => {
+            for(var c = 0; c < chars.length; c++) {
+                if(chars[c].isNotifiable) {
+                    this.sensors.push(chars[c])
+                }
+            }
+            return;
+        })
+    }
+
     monitorSessionData(device) {
-        for (const id in this.sensors) {
-            this.scanForSensorData(device, id);
+        for (var id = 0; id < this.sensors.length; id++) {
+            this.scanForSensorData(device, this.sensors[id]);
         }
     }
 
-    scanForSensorData(device, id) {
-        const service = this.serviceUUID(id)
-        const characteristicW = this.writeUUID(id)
-        const characteristicN = this.notifyUUID(id)
-
-        device.monitorCharacteristicForService(service, characteristicN, (error, characteristic) => {
+    scanForSensorData(device, char) {
+        var sub = char.monitor((error, characteristic) => {
+            console.log(error, characteristic)
             if (error) {
                 this.setState({
                     ble_status: "Error Recording"
@@ -102,10 +116,8 @@ export default class SessionRecorderController extends React.Component {
             this.setState({
                 session: state_session
             })
-            if(this.recording) {
-                this.scanForSensorData(device, id)
-            }
         })
+        this.subscriptions.push(sub)
     }
 
     render() {
@@ -119,8 +131,14 @@ export default class SessionRecorderController extends React.Component {
             session: new SessionModel()
         })
         if (Platform.OS === 'ios') {
-            this.manager.onStateChange((state) => {
-                if (state === 'PoweredOn') this.scanAndConnect()
+            this.manager.state().then(state => {
+                if(state === 'PoweredOn') {
+                    this.scanAndConnect()
+                } else {
+                    this.manager.onStateChange((state) => {
+                        if (state === 'PoweredOn') this.scanAndConnect()
+                    })
+                }
             })
         } else {
             this.scanAndConnect()
@@ -129,6 +147,9 @@ export default class SessionRecorderController extends React.Component {
 
     stop_recording = () => {
         this.recording = false
+        for(var i = 0; i < this.subscriptions.length; i++) {
+            this.subscriptions[i].remove()
+        }
         this.setState({
             recording: false,
             questioning: true
