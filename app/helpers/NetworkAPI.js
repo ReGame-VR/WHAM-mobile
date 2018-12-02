@@ -4,7 +4,7 @@ if(typeof global.it === 'function') {
     node_fetch = require("node-fetch");
 }
 
-var main_url = "http://10.110.189.4:3000"
+var main_url = "http://35.196.235.237"
 var version_extension = "?version=1.0"
 import PatientOverviewModel from '../models/general/PatientOverviewModel';
 import MessageModel from '../models/messages/MessageModel'
@@ -17,6 +17,7 @@ export default class NetworkAPI {
     // Logs this user into the server
     // If sucess, returns the token, if fail throws an error
     static login(username, password) {
+        console.log(username, password)
         var URL = main_url + "/login/patient"
         return this.my_fetch(URL, {
             method: "POST",
@@ -27,6 +28,8 @@ export default class NetworkAPI {
         }).then(response => response.json())
         .then(json => {
             return json.token
+        }).catch(error => {
+            console.log(error)
         })
     }
 

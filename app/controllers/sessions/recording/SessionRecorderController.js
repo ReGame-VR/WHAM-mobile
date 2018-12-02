@@ -90,10 +90,6 @@ export default class SessionRecorderController extends React.Component {
         const characteristicW = this.writeUUID(id)
         const characteristicN = this.notifyUUID(id)
 
-        const characteristic = await device.writeCharacteristicWithResponseForService(
-            service, characteristicW, "AQ==" /* 0x01 in hex */
-        )
-
         device.monitorCharacteristicForService(service, characteristicN, (error, characteristic) => {
             if (error) {
                 this.setState({
