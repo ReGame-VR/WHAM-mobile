@@ -19,7 +19,6 @@ export default class SessionRecorderController extends React.Component {
         this.recording = false
         this.manager = new BleManager()
 
-        this.manager = new BleManager()
         this.state = {
             info: "",
             values: {}
@@ -27,6 +26,7 @@ export default class SessionRecorderController extends React.Component {
         this.prefixUUID;
         this.sensors = [];
         this.subscriptions = [];
+        this.device;
     }
 
     scanAndConnect() {
@@ -47,6 +47,7 @@ export default class SessionRecorderController extends React.Component {
                         ble_status: "Connecting To Device"
                     })
                     this.manager.stopDeviceScan()
+                    device.dis
                     device.connect()
                         .then((device) => {
                             return device.discoverAllServicesAndCharacteristics()
@@ -66,6 +67,7 @@ export default class SessionRecorderController extends React.Component {
     }
 
     getAllSensors(device) {
+        this.device = device;
         device.services().then(services => {
             this.readServices(device, services, 0)
         })
@@ -103,6 +105,7 @@ export default class SessionRecorderController extends React.Component {
     }
 
     scanForSensorData(device, char) {
+        console.log(char)
         var sub = char.monitor((error, characteristic) => {
             console.log(error, characteristic)
             if (error) {
@@ -117,7 +120,8 @@ export default class SessionRecorderController extends React.Component {
                 session: state_session
             })
         })
-        this.subscriptions.push(sub)
+        console.log(sub);
+        this.subscriptions.push(sub) 
     }
 
     render() {
@@ -146,10 +150,20 @@ export default class SessionRecorderController extends React.Component {
     }
 
     stop_recording = () => {
+        this.device.cancelConnection();
         this.recording = false
         for(var i = 0; i < this.subscriptions.length; i++) {
             this.subscriptions[i].remove()
         }
+        this.deviceUUID = undefined;
+        this.state = {
+            info: "",
+            values: {}
+        }
+        this.prefixUUID = undefined;
+        this.sensors = [];
+        this.subscriptions = [];
+        this.device = undefined;
         this.setState({
             recording: false,
             questioning: true
